@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/main.css">
+	<script>
+		function enforceCapital(input){
+			input.value = input.value.toUpperCase();
+		}
+	</script>
+</head>
+<body>
+    <div class="login-container">
+		<div class="sign-in">
+			<div class="widget-user-image">
+				<img class="imglogo" src="img/logo.png" alt="Logo">
+			</div>
+			<br>
+			<label for="tab-1"  class="tab"><label class="welcome">WELCOME</label><label class="title"><br>T0<br>GOVT DEGREE COLLEGE MATHRA<br>KHYBER PAKHTUNKHWA</label></label>
+			<br><br>
+			<form action="/login" method="post">
+					
+					<div class="form-group">
+						<img src="../img/account.png" alt="Password Icon">
+						<input type="text" class="input" id="username" name="username" oninput="enforceCapital(this)"  placeholder="Username">
+					</div>
+					<div class="form-group">
+						<img src="../img/password.png" alt="Password Icon">
+						<input type="password" class="input" id="password" name="password"  placeholder="Password">
+					</div>
+					
+					<button type="submit" >Login</button>
+					<a href="/forgot-password" class="forgot-password">
+						Forgot Password?
+					</a>
+					<br>
+					
+			</form>
+			<!-- <form action="/register" method="get">
+						<button type="submit" class="btn-blue">Register</button>
+			</form> -->
+			<br><br>
+			<label for="tab-1"  class="tab"><label class="welcome">STUDENTS' ATTENDANCE MANAGEMENT SYSTEM</label>
+			
+		</div>
+    </div>
+</body>
+</html>

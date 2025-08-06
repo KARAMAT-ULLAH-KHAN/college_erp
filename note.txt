@@ -1,0 +1,137 @@
+Day -03:
+
+Outside nodeJS
+
+    1.  download and install PostgreSQL
+    2.  create table for faculty and department
+        create table faculty(
+            faculty_id serial PRIMARY KEY,
+            faculty_name	varchar(50),
+            designation	varchar(50),
+            contact_no	varchar(11),
+            department_id	integer,
+            access_level	integer,
+            password	varchar(255),
+            date_of_entry	date
+        );
+        create table department(
+            department_id	serial Primary Key,
+            department	varchar(100)
+        );
+    3.  export data from old and import it in above tables
+    4.  create relationship between them
+        ALTER TABLE faculty
+            ADD CONSTRAINT fk_faculty_department
+            FOREIGN KEY (department_id)
+            REFERENCES department(department_id);
+
+Inside nodeJS
+    1.  write code for bodyparser login form req data
+    2.  install pg (npm i pg)
+    3.  create object for pg
+    4.  create connection for postgree DB.
+        const db = new pg.Client({
+                user: process.env.PG_USER,
+                host: process.env.PG_HOST,
+                database: process.env.PG_DATABASE,
+                password: process.env.PG_PASSWORD,
+                port: process.env.PG_PORT,
+        });
+        db.connect();
+    5.  write SQL for faculty authentication
+            app.post("/login", async (req, res) => {
+
+                const username = req.body.username;
+                const password = req.body.password;
+                try{
+                    const result = await db.query("select * faculty from  where efaculty_name=$1;",[username]);
+                    if(result.rows.length>0){
+
+                        if(password===result.rows[0].password){
+                        res.render("ejs");
+                        }else{
+                        res.render(".ejs",{message:"Your password is incorrect, Try again"});
+                        }
+
+                    }else{
+                        res.render(".ejs",{message:"username does not exist, Please register first"});
+                    }
+                
+                }catch(err){
+                    console.log(err);
+                }
+            });
+        a)  in coming videos, we will use bcrypt and passport for authentication.
+    6.  redirect to the page according to the role access.
+
+
+Day -04
+
+1.  create Registration form for faculty( later used by admin panel)
+2.  create Hashing password for login   
+
+
+      try {
+            bcrypt.hash(newpsw,saltround,async(err,hash)=>{
+
+                const result = await db.query("UPDATE faculty set password=$1 where faculty_id=$2 AND faculty_name=$3",[hash,id,username]);
+                if (result.rowCount > 0) {
+                    res.send("Password updated successfully.");
+                } else {
+                    res.send("No matching user found or password not updated.");
+                }
+            });
+            
+        } catch (error) {
+            console.log(error);
+        }
+
+        try {
+            const result = await db.query("SELECT * FROM registeration WHERE email = $1", [
+            email,
+            ]);
+            if (result.rows.length > 0) {
+            const user = result.rows[0];
+            const storedPassword = user.password;
+
+            bcrypt.compare(password,storedPassword,async (err,result)=>{
+                if(result){
+                res.render("secrets.ejs");
+                }else{
+                res.send("Incorrect Password");
+                }
+            });
+
+            
+            } else {
+            res.send("User not found");
+            }
+        } catch (err) {
+            console.log(err);
+        }
+
+Day -05
+
+1.  create forgot password form for faculty
+
+Day -06
+
+1.  create routes for forgotpassword, Registration, login   
+
+    // import registerRoutes from "./routes/register.js";
+    
+
+    //modules
+    // app.use("/register",registerRoutes(db));
+    // app.use("/forgot-password",forgotPassword(db,bcrypt));
+    // app.use("/login",Login(db,bcrypt));
+
+Day -07
+
+1.  create github repository by name "College_ERP"
+2.  create git local repository by running "git init"
+3.  then add the above remote repository 
+        by running "git remote add origin url" 
+4.  create main branch (if the current branch has another name like master)
+        by running "git branch -M main"
+5.  now push it "git push -u origin main"

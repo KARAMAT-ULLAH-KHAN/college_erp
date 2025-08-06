@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/register.css">
+	<script>
+		function enforceCapital(input){
+			input.value = input.value.toUpperCase();
+		}
+	</script>
+</head>
+<body>
+    <div class="register-container">
+		<div class="sign-up">
+			<div class="widget-user-image">
+				<img class="imglogo" src="img/logo.png" alt="Logo">
+			</div>
+			<br>
+			<label for="tab-1"  class="tab"><label class="welcome">WELCOME</label><label class="title"><br>T0<br>GOVT DEGREE COLLEGE MATHRA<br>KHYBER PAKHTUNKHWA</label></label>
+			<br><br>
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="email">Email / Username</label>
+                    <input type="text" class="form-control" oninput="enforceCapital(this)" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="contactNo">Contact No</label>
+                    <input type="text" class="form-control" name="contactNo" required pattern="[0-9]{}" title="e.g. 03212345678">
+                </div>
+                <div class="form-group">
+                    <label for="designation">Designation</label>
+                    <select class="selectBox" name="designation">
+                        <option value="others">---</option>
+                        <option value="Principal">Principal</option>
+                        <option value="Associate Professor">Associate Professor</option>
+                        <option value="Assistant Professor">Assistant Professor</option>
+                        <option value="Lecturer">Lecturer</option>
+                        <option value="MS">Ministerial Staff</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <select class="selectBox" name="department">
+                        <% for( let index=0; index < data.length; index++ ) { %>
+                            <option value="<%=data[index].department_id%>">
+                                <%= data[index].department %>
+                            </option>
+                            <% } %>
+            
+            
+                    </select>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+		</div>
+    </div>
+</body>
+</html>
