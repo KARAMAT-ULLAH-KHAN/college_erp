@@ -129,9 +129,117 @@ Day -06
 Day -07
 
 1.  create github repository by name "College_ERP"
+    1.1 also sign in into guthub inside github
 2.  create git local repository by running "git init"
+    2.2 add the local working directory to git staging area
 3.  then add the above remote repository 
         by running "git remote add origin url" 
 4.  create main branch (if the current branch has another name like master)
         by running "git branch -M main"
 5.  now push it "git push -u origin main"
+
+
+big news 
+Day -08 is comming
+
+this time we are going to dive into the passport Library
+so be ready for real life authentication system, with SESSIONs.....!
+
+Day - 08
+1.  import libraries
+    import passport from "passport";
+    import { Strategy } from "passport-local";
+    import session from "express-session";
+
+2.  must include below code before using passport
+    app.use(
+    session({
+        secret: "TOPSECRET",
+        resave: false,    //storing session data to pg for data persistance,for now we dont want
+        saveUninitialized: true, // seesion will be store even the user logedin or not
+    })
+    );
+
+3.  below two lines of passport must comes immediately after session
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+4.  Create login success ejs file by name dashboard.ejs
+    add heading <h1> login successfully</h1>
+
+5.  go to login.js file and make the route like bellow
+    router.post("/login", passport.authenticate("local",{  
+  
+    //authenticate function trigers the strategy function to verify the user
+        successRedirect: "/dashboard",
+        failureRedirect: "/login",
+    }));
+
+6.  for /dashboard route,  
+        app.get("/dashoard",(req,res)=>{
+        if(req.isAuthenticated()){    //if passport returns True result
+            //when the user hit the route while loging in, and the passport authenticates the user with true from pg. 
+       
+            res.render("dashboard.ejs");
+        }else{
+            res.redirect("/")
+        }
+        });
+
+
+7.  Create local strategy
+    passport.use(new Strategy(async function verify(username, password, cb){
+    //verify function receive form information have the username/ password fields 
+    try{
+        
+        const result =await db.query("select * from faculty where faculty_name = $1",[username]);
+        if(result.rows.length>0){
+            const user = result.rows[0];
+            const storedPassword = user.password;
+            bcrypt.compare(password,storedPassword,async (err,result)=>{
+            if(err){
+                return cb(err); //using callback: send error if there is issue in query
+            }else{
+                if(result){   
+                    return cb(null,user);  //use callback: return user row
+                }else{
+                    return cb(null,false);  // use callback: return password incorrect
+                }
+            }
+            
+        });
+
+        
+        } else {
+        res.send("User not found");
+        }
+    } catch (err) {
+        console.log(err);
+    }
+    }));
+        
+8.  store the user data in session for local storage
+    passport.serializeUser((user, cb) => {
+    
+    console.log("inside serializeUser");
+    cb(null, user);
+    });
+
+9.  retrieve the user session data from storage
+    passport.deserializeUser((user, cb) => {
+    
+    console.log("inside deserializedUser");
+    cb(null, user);
+    });
+
+10. to set maximum age for session , add cookies
+    app.use(
+        session({
+            secret: "TOPSECRET",
+            resave: false,    //storing session data to pg for data persistance,for now we dont want
+            saveUninitialized: true, // seesion will be store even the user logedin or not
+            cookie: {
+                 maxAge: 1000*60*60,
+            }
+        })
+        );
