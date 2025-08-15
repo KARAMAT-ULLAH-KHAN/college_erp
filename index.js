@@ -6,6 +6,10 @@ import bcrypt from "bcrypt";
 import registerRoute from "./routes/register.js";
 import forgotPassword from "./routes/forgotPassword.js";
 import Login from "./routes/login.js";
+import passport from "passport";
+import { Strategy } from "passport-local";
+import session from "express-session";
+import dashboard from "./routes/dashboard.js";
 
 
 const app = express();
@@ -26,6 +30,20 @@ const db = new pg.Client({
         });
 db.connect();
 
+app.use(
+    session({
+        secret:"its my secret",
+        resave:false,   //stroing session data into postgreSQL, but for now, no need 
+        saveUninitialized:true, //  session will be stored locally
+        cookie:{
+            maxAge: 1000*60*60
+        }
+    })
+)
+//these must be include after the above session code
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get("/",(req,res)=>{
     res.render("index.ejs");
     console.log("inside /");
@@ -34,6 +52,7 @@ app.get("/",(req,res)=>{
 app.use("/forgot-password",forgotPassword(db,bcrypt));
 app.use("/login",Login(db,bcrypt));
 app.use("/register",registerRoute(db,bcrypt));
+app.use("/dashboard",dashboard());
 
 
 

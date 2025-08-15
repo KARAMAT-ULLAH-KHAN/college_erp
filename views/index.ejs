@@ -14,6 +14,9 @@
 <body>
     <div class="login-container">
 		<div class="sign-in">
+			<% if (locals.error) { %>
+			 <h3 style="color:gold;">Warning: <%= locals.username%>   <%=locals.error%>   <%=locals.message%></h3>
+			<% } %>
 			<div class="widget-user-image">
 				<img class="imglogo" src="img/logo.png" alt="Logo">
 			</div>
