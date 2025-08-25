@@ -37,8 +37,8 @@ try {
         bcrypt.hash(password,saltround,async(err,hash)=>{
 
         const result = await db.query("INSERT INTO faculty (faculty_name,designation,contact_no,department_id,access_level,password) values ($1,$2,$3,$4,$5,$6) RETURNING *",[username,designation,contactNo,department,0,hash]);
-        const user = result.row[0];
-        res.login(user,(err)=>{
+        const user = result.rows[0];
+        req.login(user,(err)=>{
             res.redirect("/dashboard");
         }); 
         
