@@ -12,8 +12,8 @@
 	</script>
 </head>
 <body>
-    <div class="login-container">
-		<div class="sign-in">
+    <div class="container">
+		<div class="inner-container">
 			<% if (locals.error) { %>
 			 <h3 style="color:gold;">Warning: <%= locals.username%>   <%=locals.error%>   <%=locals.message%></h3>
 			<% } %>
@@ -25,16 +25,22 @@
 			<br><br>
 			<form action="/login" method="post">
 					
-					<div class="form-group">
-						<img src="../img/account.png" alt="Password Icon">
-						<input type="text" class="input" id="username" name="username" oninput="enforceCapital(this)"  placeholder="Username">
-					</div>
-					<div class="form-group">
-						<img src="../img/password.png" alt="Password Icon">
-						<input type="password" class="input" id="password" name="password"  placeholder="Password">
-					</div>
+					<div class="form-container">
+						<div class="form-group">
+							<img src="../img/account.png" alt="Password Icon">
+							<input type="text" class="input" id="username" name="username" oninput="enforceCapital(this)"
+								placeholder="Username">
+						</div>
+						<div class="form-group">
+							<img src="../img/password.png" alt="Password Icon">
+							<input type="password" class="input" id="password" name="password" placeholder="Password">
+						</div>
+						<div class="form-group">
+						<button type="submit">Login</button>	
+						</div>
 					
-					<button type="submit" >Login</button>
+						
+					</div>
 					<a href="/forgot-password" class="forgot-password">
 						Forgot Password?
 					</a>
