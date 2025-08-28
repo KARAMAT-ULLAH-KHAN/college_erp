@@ -147,160 +147,199 @@ so be ready for real life authentication system, with SESSIONs.....!
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Day - 08
-1.  import libraries in index.js
-    import passport from "passport";
-    import { Strategy } from "passport-local";
-    import session from "express-session";
 
-2.  must include below code before using passport in index.js
-    app.use(
-    session({
-        secret: "myscript",     //Used to sign the session ID cookie so it can’t be tampered with.
-                                //Should be a long, random string in production, not "myscript".
-        resave: false,          //If false → session isn’t saved back to the store if it hasn’t been modified during the request.
-                                //This reduces unnecessary writes (especially if you store sessions in a database like PostgreSQL later).
-                                //If true → every request saves the session again, even if nothing changed (not recommended unless your store requires it).
-        saveUninitialized: true, // If true → store a session even if it’s new and has no data.
-                                //Useful for tracking visitors before they log in (e.g., analytics, CSRF tokens).
-                                //If false → don’t save empty sessions; only save after something is set (like req.session.user).
-                                //In authentication scenarios, false is usually better for performance and privacy.
-    })
-    );
+        1.  import libraries in index.js
+            import passport from "passport";
+            import { Strategy } from "passport-local";
+            import session from "express-session";
 
-3.  below two lines of passport must comes immediately after session step 2
-    //Sets up Passport’s core middleware.
-    //Adds functions like req.login, req.logout, and req.isAuthenticated to every request.
-    //Required whether or not you use sessions.
-    //Without this, Passport’s strategies (e.g., "local") can’t run.
-        app.use(passport.initialize());
-        app.use(passport.session());
+        2.  must include below code before using passport in index.js
+            app.use(
+            session({
+                secret: "myscript",     //Used to sign the session ID cookie so it can’t be tampered with.
+                                        //Should be a long, random string in production, not "myscript".
+                resave: false,          //If false → session isn’t saved back to the store if it hasn’t been modified during the request.
+                                        //This reduces unnecessary writes (especially if you store sessions in a database like PostgreSQL later).
+                                        //If true → every request saves the session again, even if nothing changed (not recommended unless your store requires it).
+                saveUninitialized: true, // If true → store a session even if it’s new and has no data.
+                                        //Useful for tracking visitors before they log in (e.g., analytics, CSRF tokens).
+                                        //If false → don’t save empty sessions; only save after something is set (like req.session.user).
+                                        //In authentication scenarios, false is usually better for performance and privacy.
+            })
+            );
 
-4.  Create login success ejs file by name dashboard.ejs
-    add heading <h1> login successfully</h1>
+        3.  below two lines of passport must comes immediately after session step 2
+            //Sets up Passport’s core middleware.
+            //Adds functions like req.login, req.logout, and req.isAuthenticated to every request.
+            //Required whether or not you use sessions.
+            //Without this, Passport’s strategies (e.g., "local") can’t run.
+                app.use(passport.initialize());
+                app.use(passport.session());
 
-5.  go to login.js file and make the route like bellow
-    also add:
+        4.  Create login success ejs file by name dashboard.ejs
+            add heading <h1> login successfully</h1>
+
+        5.  go to login.js file and make the route like bellow
+            also add:
+                        
+                import passport from "passport";
+                import { Strategy } from "passport-local";
+
                 
-        import passport from "passport";
-        import { Strategy } from "passport-local";
-
-        
-    router.post("/", (req, res, next) => {
-      passport.authenticate("local", (err, user, info) => {
-        if (err) {
-          return next(err);
-        }
-        if (!user) {
-          return res.render("index.ejs", {
-            error: info?.message || "Login failed",
-            username: req.body.username,
-          });
-        }
-        req.logIn(user, (err) => {
-          if (err) {
-            return next(err);
-          }
-          return res.redirect("/dashboard");
-        });
-      })(req, res, next);
-    });
-
-
-6.  Create local strategy
-    passport.use(new Strategy(async function verify(username, password, cb){
-    //verify function receive form information have the username/ password fields 
-    try{
-        
-        const result =await db.query("select * from faculty where faculty_name = $1",[username]);
-        if(result.rows.length>0){
-            const user = result.rows[0];
-            const storedPassword = user.password;
-            bcrypt.compare(password,storedPassword,async (err,result)=>{
-            if(err){
-                return cb(err); //using callback: send error if there is issue in query
-            }else{
-                if(result){   
-                    
-            console.log(user);
-                    return cb(null,user);  //use callback: return user row
-                }else{
-                    return cb(null,false, { message: "user password incorrect" });  // use callback: return password incorrect
+            router.post("/", (req, res, next) => {
+            passport.authenticate("local", (err, user, info) => {
+                if (err) {
+                return next(err);
                 }
+                if (!user) {
+                return res.render("index.ejs", {
+                    error: info?.message || "Login failed",
+                    username: req.body.username,
+                });
+                }
+                req.logIn(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                return res.redirect("/dashboard");
+                });
+            })(req, res, next);
+            });
+
+
+        6.  Create local strategy
+            passport.use(new Strategy(async function verify(username, password, cb){
+            //verify function receive form information have the username/ password fields 
+            try{
+                
+                const result =await db.query("select * from faculty where faculty_name = $1",[username]);
+                if(result.rows.length>0){
+                    const user = result.rows[0];
+                    const storedPassword = user.password;
+                    bcrypt.compare(password,storedPassword,async (err,result)=>{
+                    if(err){
+                        return cb(err); //using callback: send error if there is issue in query
+                    }else{
+                        if(result){   
+                            
+                    console.log(user);
+                            return cb(null,user);  //use callback: return user row
+                        }else{
+                            return cb(null,false, { message: "user password incorrect" });  // use callback: return password incorrect
+                        }
+                    }
+                    
+                });
+
+                
+                } else {
+                return cb(null,false, { message: "User not found" });
+                }
+            } catch (err) {
+                console.log(err);
             }
+            }));
+
+        7.  for /dashboard route,  
+                app.get("/dashboard",(req,res)=>{
+                if(req.isAuthenticated()){    //if passport returns True result
+                    //when the user hit the route while loging in, and the passport authenticates the user with true from pg. 
             
-        });
-
-        
-        } else {
-        return cb(null,false, { message: "User not found" });
-        }
-    } catch (err) {
-        console.log(err);
-    }
-    }));
-
-7.  for /dashboard route,  
-        app.get("/dashboard",(req,res)=>{
-        if(req.isAuthenticated()){    //if passport returns True result
-            //when the user hit the route while loging in, and the passport authenticates the user with true from pg. 
-       
-            res.render("dashboard.ejs");
-        }else{
-            res.redirect("/")
-        }
-        });
+                    res.render("dashboard.ejs");
+                }else{
+                    res.redirect("/")
+                }
+                });
 
 
-8 edit registration route as well
-    bcrypt.hash(password,saltRound,async (err,hash)=>{
-        const result = await db.query(
-          "INSERT INTO registeration (email, password) VALUES ($1, $2) RETURNING *",
-          [email, hash]
-        );
-        const user = result.rows[0];
-          req.login(user, (err) => {
-            console.log("success");
-            res.redirect("/secrets");
-          });
-      });
+        8 edit registration route as well
+            bcrypt.hash(password,saltRound,async (err,hash)=>{
+                const result = await db.query(
+                "INSERT INTO registeration (email, password) VALUES ($1, $2) RETURNING *",
+                [email, hash]
+                );
+                const user = result.rows[0];
+                req.login(user, (err) => {
+                    console.log("success");
+                    res.redirect("/secrets");
+                });
+            });
 
-9.  store the user data in session for local storage
-    passport.serializeUser((user, cb) => {
-    
-    console.log("inside serializeUser");
-    cb(null, user);
-    });
+        9.  store the user data in session for local storage
+            passport.serializeUser((user, cb) => {
+            
+            console.log("inside serializeUser");
+            cb(null, user);
+            });
 
-10.  retrieve the user session data from storage
-    passport.deserializeUser((user, cb) => {
-    
-    console.log("inside deserializedUser");
-    cb(null, user);
-    });
+        10.  retrieve the user session data from storage
+            passport.deserializeUser((user, cb) => {
+            
+            console.log("inside deserializedUser");
+            cb(null, user);
+            });
 
-11. to set maximum age for session , add cookies
-    app.use(
-        session({
-            secret: "TOPSECRET",
-            resave: false,    //storing session data to pg for data persistance,for now we dont want
-            saveUninitialized: true, // seesion will be store even the user logedin or not
-            cookie: {
-                 maxAge: 1000*60*60,
-            }
-        })
-        );
+        11. to set maximum age for session , add cookies
+
+            app.use(
+                session({
+                    secret: "TOPSECRET",
+                    resave: false,    //storing session data to pg for data persistance,for now we dont want
+                    saveUninitialized: true, // seesion will be store even the user logedin or not
+                    cookie: {
+                        maxAge: 1000*60*60,
+                    }
+                })
+                );
+
+
+Day -09
+
+    1.  login to OLD XAMPP WebServer system and analyse the flow
+    2.  copy a_list.php file to nodejs dashboard.ejs file
+    3.  copy css code from a_list.php
+    4.  create dashboard.css file and paste the step3 code in it
+    5.  setup the html code structure of dashboard.
+    6.  add route in index.js   for logout action.
+             get('/logout',logout());
+             then
+             import logout from "../"
+    7.  create logout route
+        import express from "express";
+        export default function logout(){
+            
+            const router= express.Router();
+            router.get('/', (req, res, next) => {
+                req.logout(function(err) {
+
+                    if (err) { 
+                            return next(err); 
+                    }
+                    req.session.destroy(() => {
+                            res.clearCookie('connect.sid'); // clears the session cookie
+                            res.redirect('/); // redirect to login page
+                    });
+                });
+                });
+            return router;
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

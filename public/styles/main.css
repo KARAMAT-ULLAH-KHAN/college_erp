@@ -167,10 +167,22 @@ a {
 	display: block;
 	border: none;
 	padding: 15px 20px;
-	border-radius: 25px;
+	border-radius: 10px;
 	background: rgba(255, 255, 255, .9);
 	animation: move-in 1s ease-out;
 	/* Apply animation */
+}
+.selectBox {
+	text-align: center;
+	color: black;
+	width: 90%;
+	display: block;
+	border: none;
+	padding: 15px 20px;
+	margin-top: 5px;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, .9);
+	animation: move-in 1s ease-out;
 }
 .form-group img {
 	position: absolute;
@@ -195,17 +207,5 @@ button {
 	/* animation: right-left 1s ease-out; */
 	/* Apply animation */
 	cursor: pointer;
-}
-.selectBox {
-	text-align: center;
-	color: black;
-	width: 100%;
-	display: block;
-	border: none;
-	padding: 15px 20px;
-	margin-top: 5px;
-	border-radius: 10px;
-	background: rgba(255, 255, 255, .9);
-	animation: move-in 1s ease-out;
 }
 
