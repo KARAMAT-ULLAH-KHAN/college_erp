@@ -1,13 +1,586 @@
 <!DOCTYPE html>
+<!-- <?php
+include 'connection.php';
+include 'address.php';
+SESSION_START();
+
+
+if(isset($_SESSION['usersession'])&&$_SESSION['acclvl']==0){
+
+}
+else{
+session_destroy();
+mysqli_close($conn);
+header("Location:./index.php");
+}
+if(isset($_POST['logout'])){
+session_destroy();
+mysqli_close($conn);
+header("Location:./index.php");
+}
+{
+	$check = mysqli_query($conn,"select * from roles");
+								while($display= mysqli_fetch_array($check))
+								{
+									if($display['role_name']=='current attendance'){
+										$current_attendance=$display['status'];
+									}
+									if($display['role_name']=='previous attendance'){
+										$previous_attendance=$display['status'];
+									}
+									if($display['role_name']=='mark leaves'){
+										$mark_leaves=$display['status'];
+									}
+									if($display['role_name']=='pre board marking'){
+										$pre_board_marking=$display['status'];
+									}
+									if($display['role_name']=='pre board result'){
+										$pre_board_result=$display['status'];
+									}
+									if($display['role_name']=='mid term marking'){
+										$mid_term_marking=$display['status'];
+									}
+									if($display['role_name']=='mid term result'){
+										$mid_term_result=$display['status'];
+									}
+									if($display['role_name']=='pre board result update'){
+										$pre_board_result_update=$display['status'];
+									}
+									if($display['role_name']=='mid term result update'){
+										$mid_term_result_update=$display['status'];
+									}
+									if($display['role_name']=='monthly attendance sheet'){
+										$monthly_attendance_sheet=$display['status'];
+									}
+									if($display['role_name']=='inter attendance'){
+										$inter_attendance=$display['status'];
+									}
+									if($display['role_name']=='bs attendance'){
+										$bs_attendance=$display['status'];
+									}
+									if($display['role_name']=='archive'){
+										$archive=$display['status'];
+									}
+									if($display['role_name']=='presentation marks'){
+										$presentation_marks=$display['status'];
+									}
+									if($display['role_name']=='presentation result'){
+										$presentation_result=$display['status'];
+									}
+									if($display['role_name']=='presentation result update'){
+										$presentation_result_update=$display['status'];
+									}
+									if($display['role_name']=='quiz marks'){
+										$quiz_marks=$display['status'];
+									}
+									if($display['role_name']=='quiz result'){
+										$quiz_result=$display['status'];
+									}
+									if($display['role_name']=='quiz result update'){
+										$quiz_result_update=$display['status'];
+									}
+									if($display['role_name']=='banner_message'){
+										$banner_message=$display['status'];
+									}
+								}
+}
+?> -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
+	<title>Program Record Entry</title>
+	<link rel="stylesheet" href="../styles/dashboard.css">
+<script>
+			function setExamValue(exam) {
+				document.getElementById('exam').value = exam;
+			}
+
+</script>
 </head>
 <body>
-    <h1>
-        Login Successfully
-    </h1>
+	<div class="sticky">
+	<div class="login-container">
+    	<div class="header">
+        <img class="imglogo" src="./img/logo.png" alt="Logo">
+				<label for="tab-1" class="tab">GOVT DEGREE COLLEGE MATHRA<br>KHYBER PAKHTUNKHWA</label>
+				<div class="logout">
+					<form name="form1" action="" method="POST">
+						<img class="img3" src="./img/three_line2.png" alt="Logo"
+							onclick="toggleMenu()">
+					</form>
+					<ul id="dropdownMenu" class="dropdown-menu">
+						<li>
+							<a href="#">
+								<input type="submit" class="dropbtn" onclick="archive()" value="Archive" name="archive" />
+							</a>
+						</li>
+						<li>
+							<form name="form1" action="fine_apply.php" method="POST">
+							<a href="#"></a>
+								<?php
+									if($_SESSION["fid"]==22||$_SESSION["fid"]==24){
+										echo	'<input type="submit" class="dropbtn" value="Student Fine" name="Student_Fine" />';
+									}
+								?>
+							</a>
+							</form>
+						</li>
+
+						<li>
+							<form name="form1" action="fine_collection.php" method="POST">
+							<a href="#"></a>
+								<?php
+									if($_SESSION["fid"]==13){
+										echo	'<input type="submit" class="dropbtn" value="Student Fine Collection" name="Student_Fine_collection" />';
+									}
+								?>
+							</a>
+							</form>
+						</li>
+						<li>
+							<form name="form1" action="struckoff.php" method="POST">
+							<a href="#"></a>
+								<?php
+									if($_SESSION["fid"]==15){
+										echo	'<input type="submit" class="dropbtn" value="StruckOff List" name="StruckOff_List" />';
+									}
+								?>
+							</a>
+							</form>
+						</li>
+						<li>
+							<a href="#">
+								<form name="form2" action="./pswr.php" method="POST">
+									<input name="fid" type="hidden" value="<?php echo $_SESSION['fid']; ?>">
+									<input type="submit" class="dropbtn" value="PIN Change" name="pswchange" />
+								</form>
+							</a>
+						</li>
+						<li>
+							<a href="./downloads.php">
+								<span>Download</span>
+							</a>
+						</li>
+						<li>
+							<a href="/logout">
+								LOGOUT
+							</a>
+						</li>
+					</ul>
+				</div>
+	</div>
+	</div>			
+	
+			<!-- <?php
+				include('connection.php');
+					$id=$_SESSION['fid'];
+				$chk = mysqli_query($conn,"select * from faculty");
+				while($f = mysqli_fetch_array($chk))
+					{
+							if($f['faculty_id']==$_SESSION['fid']){
+								
+								echo '<div class="fbar">MR. '.$f['faculty_name'].' ('.$f['Designation'].')</div>';
+								echo '<div class="datebar">Dated: '.date('d-m-Y').'</div>';
+							}
+					}
+			?> -->
+            <div class="fbar">MR. <%=userData.faculty_name %> ( <%=userData.designation %> ) </div>
+            		<div class="datebar">Dated: <%= date %></div>
+	</div>
+	
+	<div  class="entry">
+	<div class="entry1">
+<?php
+	if($banner_message){
+	//===================================================================================================================================
+	if($archive){	
+		echo	'<div id="archive" class="search" style="display="none""><div class="search1">';
+		$current_year=date('Y')-1;
+		$result = mysqli_query($conn,"select * from prog_sub_faculty
+					JOIN prog_sub_group ON prog_sub_faculty.psg_id = prog_sub_group.psg_id
+					INNER JOIN programs ON prog_sub_group.program_id = programs.programs_id
+					INNER JOIN subjects ON prog_sub_group.subject_id = subjects.subject_id
+					JOIN faculty ON prog_sub_faculty.faculty_id = faculty.faculty_id
+					where prog_sub_faculty.faculty_id=$id AND psf_status=0
+					ORDER BY prog_sub_faculty.psf_id
+					");
+		if (!$result) {
+				printf("Error: %s\n", mysqli_error($conn));
+				exit();
+		}
+				$k=1;
+				echo	'<form name="" action="a_list2.php" method="POST"></form><table class="archive-font">';     //extra to make first for working
+				echo	'<tr class="archive-font"><td>S.No</td><td>PSF_ID</td><td>INSTRUCTOR</td><td>PROGRAM</td><td>SECTION</td><td>YEAR</td><td>SUBJECT</td><td>MONTH</td><td>ACTION</td></tr>';
+		while($rowval = mysqli_fetch_array($result))
+		{
+				echo	'<form id="myform1" name="" action="printpdf.php" method="POST" ">';
+				echo	'<input  name="psfid" type="hidden" value="'.$rowval['psf_id'].'" >';
+				echo	'<input  name="pid" type="hidden" value="'.$rowval['programs_id'].'" >';
+				echo	'<input  name="pname" type="hidden" value="'.$rowval['programs_name'].'">';
+				echo	'<input  name="sec" type="hidden" value="'.$rowval['section'].'" >';
+				echo	'<input  name="sname" type="hidden" value="'.$rowval['subject_name'].'" >';
+				echo	'<input  name="fid" type="hidden" value="'.$id.'" >';
+				echo	'<tr ><td>'.$k.'</td><td>'.$rowval['psf_id'].'</td>';
+				echo	'<td>'.strtoupper($rowval['faculty_name']).'</td><td>'.strtoupper($rowval['programs_name']).'</td><td>'.$rowval['section'].'</td><td>'.$rowval['year'].'</td><td>'.$rowval['subject_name'].'</td>';
+				//for extracting month with respective year
+				$outer_psfid=$rowval['psf_id'];
+							$month_year = mysqli_query($conn,"SELECT DISTINCT  DATE_FORMAT(adate, '%Y-%m') AS month_year
+															FROM     attendance
+															INNER JOIN	enrollment ON attendance.enrollment_id=enrollment.enrollment_id
+															INNER JOIN	student ON enrollment.student_id=student.student_id
+															WHERE	attendance.psf_id= $outer_psfid
+															ORDER BY     month_year");
+				echo	'<td><select class="selectdate" name="month" id="monthDropdown" >';
+								while($me = mysqli_fetch_array($month_year))
+								{
+									
+									$year = substr($me['month_year'], 0, 4);
+   									$month = substr($me['month_year'], 5, 2);
+									$month_name=getMonthName($month);
+									echo	'<option value="'.$me['month_year'].'-01">'.$month_name.' - '.$year.'</option>';
+								}
+				echo			'</select></td> ' ;   
+				
+				echo '<td><button name="printpdf" value="" class="bt3" type="submit">Attendence List</button></td></tr></form>';
+				$k++;
+		}
+		echo '</table>';
+		echo	'</div></div>';
+	}	
+	//===================================================================================================================================
+	if($inter_attendance){
+		
+		$result = mysqli_query($conn,"select * from prog_sub_faculty
+					JOIN prog_sub_group ON prog_sub_faculty.psg_id = prog_sub_group.psg_id
+					INNER JOIN programs ON prog_sub_group.program_id = programs.programs_id
+					INNER JOIN subjects ON prog_sub_group.subject_id = subjects.subject_id
+					JOIN faculty ON prog_sub_faculty.faculty_id = faculty.faculty_id
+					where prog_sub_faculty.faculty_id=$id   AND programs.duration=2 AND psf_status=1");
+		if (!$result) {
+				printf("Error: %s\n", mysqli_error($conn));
+				exit();
+		}
+	
+				echo	'<form name="" action="a_list2.php" method="POST"></form>';     //extra to make first for working
+		
+		while($rowval = mysqli_fetch_array($result))
+		{
+			
+				echo '<br>';	
+				echo	'<div class="search"><div class="search1">';
+				echo	'<form id="myform1" name="" action="a_list2.php" method="POST">';
+				echo	'<input  name="psfid" type="hidden" value="'.$rowval['psf_id'].'" >';
+				echo	'<input  name="pid" type="hidden" value="'.$rowval['programs_id'].'" >';
+				echo	'<input  name="pname" type="hidden" value="'.$rowval['programs_name'].'">';
+				echo	'<input  name="sec" type="hidden" value="'.$rowval['section'].'" >';
+				echo	'<input  name="sname" type="hidden" value="'.$rowval['subject_name'].'" >';
+				
+				if($current_attendance){
+					echo	'<button name="a_list" value="Click" class="bt1">Today\'s Attendance : '.date('d-m-Y').'<br>'.strtoupper($rowval['programs_name']).'<br>'.$rowval['section'].'<br>'.$rowval['subject_name'].'</button>';
+				}
+				if($monthly_attendance_sheet){
+					//for extracting month with respective year
+					$outer_psfid=$rowval['psf_id'];
+					$month_year = mysqli_query($conn,"SELECT DISTINCT  DATE_FORMAT(adate, '%Y-%m') AS month_year
+													FROM     attendance
+													WHERE	attendance.psf_id= $outer_psfid
+													ORDER BY     month_year DESC");
+					echo	'<div class="monthlylist"><hr><select class="selectdate" name="month" id="monthDropdown" >';
+						while($me = mysqli_fetch_array($month_year))
+						{
+							
+							$year = substr($me['month_year'], 0, 4);
+							$month = substr($me['month_year'], 5, 2);
+							$month_name=getMonthName($month);
+							echo	'<option value="'.$me['month_year'].'-01">'.$month_name.' - '.$year.'</option>';
+						}
+					echo			'</select> ' ;        
+					echo '<button name="all_list" value="" class="bt3" type="submit">Full Attendence List</button></div>';
+				}
+				if($previous_attendance){
+					echo '<hr><button name="inprevious" value="" class="bt1" type="submit">Mark Previous Attendance</button>';
+				}
+				if($mark_leaves){
+					echo '<button name="markleave" value="" class="bt1" type="submit">Update Attendance (Individual)</button>';
+				}
+				echo	'</form>';
+				echo	'<form id="myform1" name="" action="preresult.php" method="POST">';
+						echo	'<input  name="psfid" type="hidden" value="'.$rowval['psf_id'].'" >';
+						echo	'<input  name="fname" type="hidden" value="'.$rowval['faculty_name'].'" >';
+						echo	'<input  name="pid" type="hidden" value="'.$rowval['programs_id'].'" >';
+						echo	'<input  name="pname" type="hidden" value="'.$rowval['programs_name'].'">';
+						echo	'<input  name="sec" type="hidden" value="'.$rowval['section'].'" >';
+						echo	'<input  name="sname" type="hidden" value="'.$rowval['subject_name'].'" >';
+						echo	'<input  name="exam" type="hidden" value="PRE-BOARD" >';
+				echo	'<div class="mid-term">';
+				echo	'<label class="heading">Pre-Board</label><hr>';		
+						if($pre_board_marking){
+							echo 	'<button name="marking" value="pre_board_marking" class="bt1" type="submit" style="margin-right: 10px;" >Marking</button>';   
+						}
+						if($pre_board_result){
+							echo 	'<button name="result" value="pre_board_result" class="bt1" type="submit" style="margin-right: 10px;">View Result</button>';   
+						}
+						if($pre_board_result_update){
+							echo 	'<button name="result_update" value="" class="bt1" type="submit" style="margin-right: 10px;" >Update</button>';
+						}
+				echo	'</div></form>';
+				echo	'</div></div>';
+				
+				echo '<br>';
+				
+		}
+		echo '</div>';
+	}
+	//===================================================================================================================================
+	if($bs_attendance){
+		$result = mysqli_query($conn,"select * from prog_sub_faculty
+					JOIN prog_sub_group ON prog_sub_faculty.psg_id = prog_sub_group.psg_id
+					INNER JOIN programs ON prog_sub_group.program_id = programs.programs_id
+					INNER JOIN subjects ON prog_sub_group.subject_id = subjects.subject_id
+					JOIN faculty ON prog_sub_faculty.faculty_id = faculty.faculty_id
+					where prog_sub_faculty.faculty_id=$id AND psf_status=1 AND programs.duration=4");
+		if (!$result) {
+				printf("Error: %s\n", mysqli_error($conn));
+				exit();
+		}
+	
+				echo	'<form name="" action="a_list2.php" method="POST"></form>';     //extra to make first for working
+		
+		while($rowval = mysqli_fetch_array($result))
+		{
+			if(1){
+			echo '<br>';	
+				echo	'<div class="search"><div class="search1">';
+				echo	'<form id="myform1" name="" action="course_file.php" method="POST">';
+				echo	'<input  name="psfid" type="hidden" value="'.$rowval['psf_id'].'" >';
+				echo	'<input  name="pid" type="hidden" value="'.$rowval['programs_id'].'" >';
+				echo	'<input  name="pname" type="hidden" value="'.$rowval['programs_name'].'">';
+				echo	'<input  name="sec" type="hidden" value="'.$rowval['section'].'" >';
+				echo	'<input  name="sname" type="hidden" value="'.$rowval['subject_name'].'" >';
+				echo	'<input  name="scode" type="hidden" value="'.$rowval['subject_code'].'" >';
+
+					echo '<hr><button name="course_file" value="" class="bt11" type="submit">Print Course File</button>';
+					echo	'</form>';
+			}
+				echo '<br>';	
+				echo	'<div class="search"><div class="search1">';
+				echo	'<form id="myform1" name="" action="a_list2.php" method="POST">';
+				echo	'<input  name="psfid" type="hidden" value="'.$rowval['psf_id'].'" >';
+				echo	'<input  name="pid" type="hidden" value="'.$rowval['programs_id'].'" >';
+				echo	'<input  name="pname" type="hidden" value="'.$rowval['programs_name'].'">';
+				echo	'<input  name="sec" type="hidden" value="'.$rowval['section'].'" >';
+				echo	'<input  name="sname" type="hidden" value="'.$rowval['subject_name'].'" >';
+				
+				
+				if($current_attendance){
+					echo	'<button name="a_list" value="Click" class="bt11">'.strtoupper($rowval['programs_name']).'<br>'.$rowval['section'].'<br>'.$rowval['subject_name'].'</button>';
+				}
+				if($monthly_attendance_sheet){
+					//for extracting month with respective year
+					$outer_psfid=$rowval['psf_id'];
+					$month_year = mysqli_query($conn,"SELECT DISTINCT  DATE_FORMAT(adate, '%Y-%m') AS month_year
+													FROM     attendance
+													WHERE	attendance.psf_id= $outer_psfid
+													ORDER BY     month_year DESC");
+					echo	'<div class="monthlylist"><hr><select class="selectdate" name="month" id="monthDropdown" >';
+						while($me = mysqli_fetch_array($month_year))
+						{
+							
+							$year = substr($me['month_year'], 0, 4);
+							$month = substr($me['month_year'], 5, 2);
+							$month_name=getMonthName($month);
+							echo	'<option value="'.$me['month_year'].'-01">'.$month_name.' - '.$year.'</option>';
+						}
+					echo			'</select> ' ;        
+					echo '<button name="all_list" value="" class="bt3" type="submit">Full Attendence List</button></div>';
+				}
+				
+				if($previous_attendance){
+					echo '<hr><button name="inprevious" value="" class="bt11" type="submit">Mark Previous Attendance</button>';
+				}
+				if($mark_leaves){
+					echo '<button name="markleave" value="" class="bt11" type="submit">Mark Leaves</button>';
+				}
+				echo	'</form>';
+				echo	'<form id="myform1" name="" action="preresult.php" method="POST">';
+						echo	'<input  name="psfid" type="hidden" value="'.$rowval['psf_id'].'" >';
+						echo	'<input  name="fname" type="hidden" value="'.$rowval['faculty_name'].'" >';
+						echo	'<input  name="pid" type="hidden" value="'.$rowval['programs_id'].'" >';
+						echo	'<input  name="pname" type="hidden" value="'.$rowval['programs_name'].'">';
+						echo	'<input  name="sec" type="hidden" value="'.$rowval['section'].'" >';
+						echo	'<input  name="sname" type="hidden" value="'.$rowval['subject_name'].'" >';
+						echo	'<input  class="exam" name="exam" type="hidden"  >';
+				echo	'<div class="mid-term">';
+				echo	'<label class="heading">Mid-Term</label><hr>';
+						if($mid_term_marking){
+							echo 	'<button name="marking" value="mid_term_marking" class="bt11" type="submit" onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px;" >Marking</button>';   
+						}
+						if($mid_term_result){
+							echo 	'<button name="result" value="mid_term_result" class="bt11" type="submit" onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px;">View Result</button>';   
+						}
+						if($mid_term_result_update){
+							echo 	'<button name="result_update" value="mid_term_result_update" class="bt11" onclick="setExamValue(\'MID-TERM\')" type="submit" style="margin-right: 10px;" >Update</button>';
+						}
+				echo	'</div>';
+				echo	'<div class="presentation">';
+				echo	'<label class="heading">Presentation</label><hr>';
+						if($presentation_marks){
+							echo 	'<button name="marking" value="Presentation_Marks" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >Marking</button>';
+						}
+						if($presentation_result){
+							echo 	'<button name="result" value="Presentation_Result" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >View Result</button>';
+						}
+						if($presentation_result_update){
+							echo 	'<button name="result_update" value="Presentation_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >Update</button>';
+						}
+				echo	'</div>';
+				echo	'<div class="quiz">';
+				echo	'<label class="heading">Quiz</label><hr>';
+						if($quiz_marks){
+							echo 	'<button name="marking" value="Quiz_Marks" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >Marking</button>';
+						}
+						if($quiz_result){
+							echo 	'<button name="result" value="Quiz_Result" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >View Result</button>';
+						}
+						if($quiz_result_update){
+							echo 	'<button name="result_update" value="Quiz_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >Update</button>';
+						}
+				echo	'</div>';
+				echo	'<div class="assignment">';
+				echo	'<label class="heading">Assignment</label><hr>';
+						if(1){
+							echo 	'<button name="marking" value="Assignment_Marks" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >Marking</button>';
+						}
+						if(1){
+							echo 	'<button name="result" value="Assignment_Result" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >View Result</button>';
+						}
+						if(1){
+							echo 	'<button name="result_update" value="Assignment_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >Update</button>';
+						}
+				echo	'</div>';
+				echo	'<div class="topics">';
+				echo	'<label class="heading">Course File Topics</label><hr>';
+						if(1){
+							echo 	'<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')"  style="margin-right: 10px;" >Presentation</button>';
+						}
+						if(1){
+							echo 	'<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')"  style="margin-right: 10px;" >Quiz</button>';
+						}
+						if(1){
+							echo 	'<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')"  style="margin-right: 10px;" >Assignment</button>';
+						}
+						if(1){
+							echo 	'<button name="Weekly_Topics" value="" class="bt11" type="submit" onclick="setExamValue(\'Weekly_Topics\')"  style="margin-right: 10px;" >Weekly_Topics</button>';
+						}
+						
+				echo	'</div>';
+				echo	'</form>';
+				echo	'</div></div>';
+				
+				echo '<br>';
+				
+		}
+		echo '</div>';
+	}
+
+	}
+	else{
+
+		echo	'<div class="banner" id="attendanceBanner">
+						<span class="icon">⚠️</span>
+						<span class="banner-text">
+							Attendance will resume once the issue with student struck-off records is resolved. Thank you for your patience!
+						</span>
+						
+				</div>';
+	}
+?>
+</div></div>
+<?php
+	function getMonthName($monthNumber) {
+		switch($monthNumber){
+			case 01:	
+				$monthNumber=1;
+				break;
+			case 02:	
+				$monthNumber=2;
+				break;
+			case 03:	
+				$monthNumber=3;
+				break;
+			case 04:	
+				$monthNumber=4;
+				break;
+			case 05:	
+				$monthNumber=5;
+				break;
+			case 06:	
+				$monthNumber=6;
+				break;
+			case 07:	
+				$monthNumber=7;
+				break;
+			case 8:	
+				$monthNumber=8;
+				break;
+			case 9:	
+				$monthNumber=9;
+				break;
+			default:
+				break;
+		}
+			$months = [
+				1 => 'Jan',
+				2 => 'Feb',
+				3 => 'Mar',
+				4 => 'April',
+				5 => 'May',
+				6 => 'June',
+				7 => 'July',
+				8 => 'Aug',
+				9 => 'Sept',
+				10 => 'Oct',
+				11 => 'Nov',
+				12 => 'Dec'
+			];
+			return isset($months[$monthNumber]) ? $months[$monthNumber] : 'Invalid Month';
+			}
+?>	
+	<script>
+			function setExamValue(value) {
+				let elements = document.getElementsByClassName('exam');
+				for (let i = 0; i < elements.length; i++) {
+					elements[i].value = value;
+				}
+			}
+			function archive(){
+				var x= document.getElementById("archive");
+				if(x.style.display==="block"){
+					x.style.display="none";
+				}else{
+					x.style.display="block";
+				}
+			}
+			function toggleMenu() {
+				var menu = document.getElementById('dropdownMenu');
+				if (menu.style.display === 'none' || menu.style.display === '') {
+					menu.style.display = 'block';
+				} else {
+					menu.style.display = 'none';
+				}
+			}
+
+			// Optional: Close the menu when clicking outside of it
+			document.addEventListener('click', function(event) {
+				var isClickInside = document.querySelector('.logout').contains(event.target);
+				var menu = document.getElementById('dropdownMenu');
+
+				if (!isClickInside) {
+					menu.style.display = 'none';
+				}
+			});
+	</script>
 </body>
 </html>

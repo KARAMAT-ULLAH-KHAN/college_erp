@@ -10,6 +10,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import dashboard from "./routes/dashboard.js";
+import logout from "./routes/logout.js";
 
 
 const app = express();
@@ -53,6 +54,7 @@ app.use("/forgot-password",forgotPassword(db,bcrypt));
 app.use("/login",Login(db,bcrypt));
 app.use("/register",registerRoute(db,bcrypt));
 app.use("/dashboard",dashboard());
+app.use("/logout",logout());
 
 
 

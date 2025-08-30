@@ -306,24 +306,72 @@ Day -09
              then
              import logout from "../"
     7.  create logout route
-        import express from "express";
-        export default function logout(){
-            
-            const router= express.Router();
-            router.get('/', (req, res, next) => {
-                req.logout(function(err) {
+       import express from "express";
 
-                    if (err) { 
-                            return next(err); 
-                    }
-                    req.session.destroy(() => {
-                            res.clearCookie('connect.sid'); // clears the session cookie
-                            res.redirect('/); // redirect to login page
-                    });
-                });
-                });
+        export default function logout(){
+            const router = express.Router();
+
+            router.get('/', (req, res, next) => {
+                        req.logout(function(err) {
+
+                            if (err) { 
+                                    return next(err); 
+                            }
+                            req.session.destroy(() => {
+                                    res.clearCookie('connect.sid'); // clears the session cookie
+                                    res.redirect('/'); // redirect to login page
+                            });
+                        });
+                        });
+
+
             return router;
-        };
+        }
+    8.  date information        
+        const d = new Date();
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        var date= `${day}/${month}/${year}`;
+    9.  get user from database.
+
+Day-10
+    1. show the ERD from student to PSF
+    2. create student table (change that student_id to numeric in pgadmin)
+        CREATE TABLE student (
+            student_id SERIAL PRIMARY KEY,
+            class_no NUMERIC(11), 
+            student_name VARCHAR(255),
+            father_name VARCHAR(255),
+            year NUMERIC(4), 
+            inter_bs VARCHAR(10),
+            fresh_mig VARCHAR(1),
+            s_contact NUMERIC(11), 
+            f_contact NUMERIC(11),
+            domicile VARCHAR(255),
+            tracking_id VARCHAR(255),
+            date DATE
+        );
+    3. export data from xampp, delete the merit data columns, because the tracking id will be connected to merit_list table
+    4. create enrollment table 
+        CREATE TABLE enrollment (
+            enrollment_id SERIAL PRIMARY KEY,
+            student_id NUMERIC,
+            program_id NUMERIC,
+            fs_change NUMERIC,
+            active BOOLEAN,
+            shift BOOLEAN,
+            b_form BOOLEAN,
+            promoted BOOLEAN,
+            migrated BOOLEAN,
+            canceled BOOLEAN,
+            enroll_year NUMERIC(4),
+            enroll_date DATE,
+            remarks VARCHAR(255)
+        );
+    5. now  export the enrollment data from Xampp and import it in above step13 table
+     
+
 
 
 

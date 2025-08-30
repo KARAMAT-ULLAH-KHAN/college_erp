@@ -1,0 +1,344 @@
+body {
+    background-color: grey;
+	   text-align: center;
+	justify-content: center;
+	}
+		.header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .imglogo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+		.header .img3 {
+            width: 20px;
+            height: 20px;
+			margin-left: 10px;
+			cursor:pointer;
+        }
+        .header .tab{
+            font-size: 12px;
+            color: #000;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: left;
+        }
+		.logout{
+			position: relative;
+    		display: inline-block;
+		}
+		.logout .bt21{
+			background-color: transparent;
+			color: darkgray;
+			border-color: lightslategray;
+			cursor: pointer;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			margin-left: 20%;
+		}
+		.logout .bt21:hover{
+			background-color: darkgrey;
+			color: white;
+		}
+.login-container {
+    background-color: #C6F6C6;
+    border-radius: 0px;
+    padding: 0px;
+    text-align: center;
+	box-shadow: 0 0 10px rgba(0, 100, 0, 0.9);
+	/*opacity: 0.7;*/
+}
+.search{
+	
+	padding-top: 3px;
+	width: 100%; /* Use a percentage or max-width */
+	box-sizing: border-box; /* Include padding and border in the total width */
+	text-align: center;
+		padding-left: 3%;
+	padding-right: 3%;
+	overflow-x: auto;
+	
+	
+}
+.search1{
+	background:rgba(255,255,255,.7);
+	box-shadow: 0 0 10px rgba(0, 0, 100, 0.9);
+	border-radius: 8px;
+	padding-left: 3%;
+	padding-right: 3%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	text-align: center;
+	align-items: center;
+	overflow-x: auto;
+}
+.archive-font{
+            font-size: 10px;
+			width:100%;
+            color: #000;
+            font-family: 'Times New Roman', Times, serif;
+			text-align: center;
+        }
+tr,td{
+			padding: 5px;
+            text-align: center;
+            border-bottom: 1px solid black;
+
+}
+tr:hover {
+            background-color: gray;
+			color:white;
+        }
+.right1:last-child{
+	
+	background-color: SlateBlue;
+	box-shadow: 0 0 10px rgba(0, 0, 100, 0.9);
+	width: 	100%;
+	border-radius: 8px;
+	padding-left: 3%;
+	padding-right: 3%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	text-align: center;	
+	margin-left: 10px;
+	overflow-x: auto;
+}
+lable{
+color: white;
+}
+
+.fbar{
+	background-color: gold;
+	margin-top: 2px;
+}
+.datebar{
+	background-color:Tomato;
+}
+ .white-text {
+            color: white;
+        }
+.bt1{
+	padding: 10px 20px; /* You can adjust the padding as needed */
+	margin-top:5px;
+	margin-bottom: 5px;
+	border-radius: 8px;
+	border: 3px solid #008CBA;
+	width:100%;
+	font-weight: bold;
+	font-size: 10px;
+	cursor: pointer;
+	color:#008CBA;
+	box-shadow: 0 0 10px rgba(100, 0, 100, 0.9),
+		inset 0 2px 5px rgba(0, 0, 0, 0.7); /* Inner shadow */
+	}
+	.bt1:hover{
+		background-color: #008CBA;
+		color:white
+	}
+.bt11{
+	padding: 10px 10px; /* You can adjust the padding as needed */
+	margin-top:5px;
+	margin-bottom: 5px;
+	border-radius: 8px;
+	border: 3px solid #f44336;
+	width: 100%;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 10px;
+	color:#f44336;
+	box-shadow: 0 0 10px rgba(100, 0, 100, 0.9),
+		inset 0 2px 5px rgba(0, 0, 0, 0.7); /* Inner shadow */
+	}
+	.bt11:hover{
+		background-color: #f44336;
+		color:white
+	}
+.mid-term .bt11,
+.mid-term .bt1,
+.presentation .bt11,
+.quiz .bt11,
+.assignment .bt11,
+.topics .bt11{
+	white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words */
+	width:25%;
+	height: 50px;
+	padding: 5px 5px;
+	margin-top:2px;
+	margin-bottom: 2px;
+	margin-left: 0px;
+	margin-right: 0px;
+}	
+.mid-term,
+.presentation,
+.quiz,
+.assignment,
+.topics{
+	margin: 2px;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding-bottom: 4px;
+}
+.heading{
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color:darkslategrey;
+}
+.bt2 {
+    background-color: darkgreen;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.bt3 {
+    background-color: tomato;
+    color: white;
+    padding: 3px 6px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.bt2:hover {
+    transform: scale(1.1);
+	background-color: #4caf50;
+}
+  .selectdate {
+    padding: 5px;
+	width:  100px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: lightblue;
+	text-align: center;
+    background-position: right center;
+  }
+}
+  .monthlylist {
+    padding: 50px;
+	width: 500px;
+	height: 500px;
+	background-color: pink;
+  }
+#archive{
+	display:none;
+}
+.sticky{
+	position: sticky;
+    top: 0; /* This ensures the container sticks to the top */
+    z-index: 1000; /* Ensures it stays above other content while scrolling */
+}
+/* Hide the dropdown menu by default */
+/* Position the dropdown menu beside the img3 */
+.dropdown-menu {
+    display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    position: absolute;
+    right: 0; /* Position it to the right of img3 */
+    top: 80px; /* Vertically align with img3 */
+    /* transform: translateY(-50%); Center it vertically */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px;
+    border-radius: 4px;
+	animation: left-right 1s ease-out; /* Apply animation */
+   
+}
+@keyframes left-right {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* Style the list items */
+.dropdown-menu li {
+    padding: 2px 6px;
+	/*text-align: right;*/
+	border-bottom: 1px;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #ddd;
+}
+.dropbtn{
+	background-color: transparent; /* Make the background transparent */
+    border: none; /* Remove the border */
+    color: inherit; /* Keep the text color as inherited from parent */
+    cursor: pointer; /* Change the cursor to a pointer */
+    padding: 0; /* Remove any padding */
+    font: inherit; /* Inherit font settings from parent */
+    text-align: center; /* Center the text */
+    outline: none; /* Remove the default focus outline */
+}
+/* Style for the banner container */
+.banner {
+        background-color: #ffeb3b; /* Bright yellow background for attention */
+        color: #333; /* Dark text for readability */
+        text-align: center;
+        padding: 20px;
+        border: 2px solid #fbc02d; /* Accent border color */
+        font-family: Arial, sans-serif;
+        font-size: 1.2em;
+        position: relative;
+        margin: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        animation: slideIn 1s ease-in-out;
+    }
+
+    /* Attention icon */
+    .banner .icon {
+        font-size: 2em;
+        margin-right: 10px;
+        color: #f57f17;
+        vertical-align: middle;
+    }
+
+    /* Responsive banner text */
+    .banner-text {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 90%;
+    }
+
+    /* Animation for sliding in the banner */
+    @keyframes slideIn {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Close button for user dismissal */
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background-color: transparent;
+        border: none;
+        font-size: 1.2em;
+        color: #333;
+        cursor: pointer;
+    }
