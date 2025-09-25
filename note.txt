@@ -67,85 +67,82 @@ Inside nodeJS
 
 Day -04
 
-1.  create Registration form for faculty( later used by admin panel)
-2.  create Hashing password for login   
+    1.  create Registration form for faculty( later used by admin panel)
+    2.  create Hashing password for login   
 
-
-      try {
-            bcrypt.hash(newpsw,saltround,async(err,hash)=>{
-
-                const result = await db.query("UPDATE faculty set password=$1 where faculty_id=$2 AND faculty_name=$3",[hash,id,username]);
-                if (result.rowCount > 0) {
-                    res.send("Password updated successfully.");
-                } else {
-                    res.send("No matching user found or password not updated.");
-                }
-            });
-            
-        } catch (error) {
-            console.log(error);
-        }
 
         try {
-            const result = await db.query("SELECT * FROM registeration WHERE email = $1", [
-            email,
-            ]);
-            if (result.rows.length > 0) {
-            const user = result.rows[0];
-            const storedPassword = user.password;
+                bcrypt.hash(newpsw,saltround,async(err,hash)=>{
 
-            bcrypt.compare(password,storedPassword,async (err,result)=>{
-                if(result){
-                res.render("secrets.ejs");
-                }else{
-                res.send("Incorrect Password");
-                }
-            });
-
-            
-            } else {
-            res.send("User not found");
+                    const result = await db.query("UPDATE faculty set password=$1 where faculty_id=$2 AND faculty_name=$3",[hash,id,username]);
+                    if (result.rowCount > 0) {
+                        res.send("Password updated successfully.");
+                    } else {
+                        res.send("No matching user found or password not updated.");
+                    }
+                });
+                
+            } catch (error) {
+                console.log(error);
             }
-        } catch (err) {
-            console.log(err);
-        }
+
+            try {
+                const result = await db.query("SELECT * FROM registeration WHERE email = $1", [
+                email,
+                ]);
+                if (result.rows.length > 0) {
+                const user = result.rows[0];
+                const storedPassword = user.password;
+
+                bcrypt.compare(password,storedPassword,async (err,result)=>{
+                    if(result){
+                    res.render("secrets.ejs");
+                    }else{
+                    res.send("Incorrect Password");
+                    }
+                });
+
+                
+                } else {
+                res.send("User not found");
+                }
+            } catch (err) {
+                console.log(err);
+            }
 
 Day -05
 
-1.  create forgot password form for faculty
+    1.  create forgot password form for faculty
 
 Day -06
 
-1.  create routes for forgotpassword, Registration, login   
+    1.  create routes for forgotpassword, Registration, login   
 
-    // import registerRoutes from "./routes/register.js";
-    
+        // import registerRoutes from "./routes/register.js";
+        
 
-    //modules
-    // app.use("/register",registerRoutes(db));
-    // app.use("/forgot-password",forgotPassword(db,bcrypt));
-    // app.use("/login",Login(db,bcrypt));
+        //modules
+        // app.use("/register",registerRoutes(db));
+        // app.use("/forgot-password",forgotPassword(db,bcrypt));
+        // app.use("/login",Login(db,bcrypt));
 
-Day -07
+    Day -07
 
-1.  create github repository by name "College_ERP"
-    1.1 also sign in into guthub inside github
-2.  create git local repository by running "git init"
-    2.2 add the local working directory to git staging area
-3.  then add the above remote repository 
-        by running "git remote add origin url" 
-4.  create main branch (if the current branch has another name like master)
-        by running "git branch -M main"
-5.  now push it "git push -u origin main"
-
+    1.  create github repository by name "College_ERP"
+        1.1 also sign in into guthub inside github
+    2.  create git local repository by running "git init"
+        2.2 add the local working directory to git staging area
+    3.  then add the above remote repository 
+            by running "git remote add origin url" 
+    4.  create main branch (if the current branch has another name like master)
+            by running "git branch -M main"
+    5.  now push it "git push -u origin main"
 
 big news 
-Day -08 is comming
+    Day -08 is comming
 
-this time we are going to dive into the passport Library
-so be ready for real life authentication system, with SESSIONs.....!
-
-
+    this time we are going to dive into the passport Library
+    so be ready for real life authentication system, with SESSIONs.....!
 
 Day - 08
 
@@ -293,7 +290,6 @@ Day - 08
                 })
                 );
 
-
 Day -09
 
     1.  login to OLD XAMPP WebServer system and analyse the flow
@@ -370,24 +366,88 @@ Day-10
             remarks VARCHAR(255)
         );
     5. now  export the enrollment data from Xampp and import it in above step13 table
-     
 
+Day-11
+    1.  create table by the program_class_section :Query bellow
+        CREATE TABLE program_class_section
+        (
+            program_id serial PRIMARY KEY,
+            p_id numeric(11),
+            class_id numeric(11),
+            section_id numeric(11),
+            code numeric(11),
+            duration numeric(11),
+            status boolean,
+            pdate date
+        );
+        now import the data from Xampp
 
+    2.  create program table :Query bellow
+        CREATE TABLE program(
+            p_id	serial PRIMARY KEY,
+            program_name	varchar(255)
+        );
+        now import the data from Xampp
 
+    3.  create class table :Query bellow
+        CREATE TABLE class(
+            class_id serial PRIMARY KEY,
+            class_name	varchar(255)
+        );
+        now import the data from Xampp
 
+    4.  create section table :Query bellow
+        CREATE TABLE section(
+            section_id	serial PRIMARY KEY,
+            section_name	varchar(255)
+        );
+        now import the data from Xampp
 
-
-
-
-
-
-
-
-
-
-
-
-
+    5. export data from xampp and import it into postgreeSQL
+    
+    6. create subject table :Query bellow
+        CREATE TABLE subject(
+            subject_id	serial PRIMARY KEY,
+            subject_name	varchar(255),
+            subject_code	varchar(255),
+            date	date
+        );
+        export subject table data from xampp and import into postgreeSQL
+        in futur, for all these entries, we will create forms for adding the data at admin panel
+    
+    7. create table in postgreeSQL for program_subject_groups :Query bellow
+        CREATE TABLE program_subject_group(
+            psg_id 	serial PRIMARY KEY,
+            program_id	numeric(11),
+            subject_id	numeric(11)
+        );
+        import data into from xampp
+ 
+Day 12
+    1.  create program_subject_faculty
+        CREATE TABLE program_subject_faculty(
+            psf_id  serial PRIMARY KEY,
+            psg-id  numeric(11),
+            faculty_id  numeric(11),
+            credit_hour numeric(4),
+            year    numeric(4),
+            psf_status  boolean,
+            psf_date    date
+        )
+    2.  import data into it
+    3.  create attendance table
+        CREATE TABLE attendance (
+            attendance_id   serial PRIMARY KEY,
+            psf_id  numeric(11),
+            enrollment_id   numeric(11),
+            adate   date,
+            status  varchar(10),
+            marking_date    date,
+            fine_collection  boolean
+        )
+    4.  import data into
+    5.  change the primary key type to numeric
+    6.  now create relationships using FOREIGN KEY
 
 
 
