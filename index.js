@@ -45,15 +45,21 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.get("/",(req,res)=>{
     res.render("index.ejs");
     console.log("inside /");
+});
+const password='123';
+const saltround=10;
+bcrypt.hash(password,saltround,async(err,hash)=>{
+    const result = await db.query("update faculty set password=$1",[hash]);
 });
 
 app.use("/forgot-password",forgotPassword(db,bcrypt));
 app.use("/login",Login(db,bcrypt));
 app.use("/register",registerRoute(db,bcrypt));
-app.use("/dashboard",dashboard());
+app.use("/dashboard",dashboard(db));
 app.use("/logout",logout());
 
 
