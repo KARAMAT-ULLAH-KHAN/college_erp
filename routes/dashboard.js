@@ -45,7 +45,7 @@ export default function dashboard(db){
 
 
 
-            console.log("User ID:", req.user.faculty_id);
+            console.log("User ID:", req.user.faculty_id, "--Months: ",psfRecord.rows[0].months);
 
             res.render("dashboard.ejs",{
                 userData: req.user,

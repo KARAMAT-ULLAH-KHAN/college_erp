@@ -92,6 +92,8 @@ header("Location:./index.php");
     
 	<title>Program Record Entry</title>
 	<link rel="stylesheet" href="../styles/dashboard.css">
+	<link rel="stylesheet" href="../styles/header.css">
+	<link rel="stylesheet" href="../styles/footer.css">
 <script>
 			function setExamValue(exam) {
 				document.getElementById('exam').value = exam;
@@ -101,88 +103,16 @@ header("Location:./index.php");
 </script>
 </head>
 <body>
-	<div class="sticky">
-	<div class="login-container">
-    	<div class="header">
-        <img class="imglogo" src="./img/logo.png" alt="Logo">
-				<label for="tab-1" class="tab">GOVT DEGREE COLLEGE MATHRA<br>KHYBER PAKHTUNKHWA</label>
-				<div class="logout">
-					<form name="form1" action="" method="POST">
-						<img class="img3" src="./img/three_line2.png" alt="Logo"
-							onclick="toggleMenu()">
-					</form>
-					<ul id="dropdownMenu" class="dropdown-menu">
-						<li>
-							<a href="#">
-								<input type="submit" class="dropbtn" onclick="archive()" value="Archive" name="archive" />
-							</a>
-						</li>
-						<li>
-							<form name="form1" action="fine_apply.php" method="POST">
-							<a href="#"></a>
-								<?php
-									if($_SESSION["fid"]==22||$_SESSION["fid"]==24){
-										echo	'<input type="submit" class="dropbtn" value="Student Fine" name="Student_Fine" />';
-									}
-								?>
-							</a>
-							</form>
-						</li>
+	<%- include('header.ejs')%>			
 
-						<li>
-							<form name="form1" action="fine_collection.php" method="POST">
-							<a href="#"></a>
-								<?php
-									if($_SESSION["fid"]==13){
-										echo	'<input type="submit" class="dropbtn" value="Student Fine Collection" name="Student_Fine_collection" />';
-									}
-								?>
-							</a>
-							</form>
-						</li>
-						<li>
-							<form name="form1" action="struckoff.php" method="POST">
-							<a href="#"></a>
-								<?php
-									if($_SESSION["fid"]==15){
-										echo	'<input type="submit" class="dropbtn" value="StruckOff List" name="StruckOff_List" />';
-									}
-								?>
-							</a>
-							</form>
-						</li>
-						<li>
-							<a href="#">
-								<form name="form2" action="./pswr.php" method="POST">
-									<input name="fid" type="hidden" value="<?php echo $_SESSION['fid']; ?>">
-									<input type="submit" class="dropbtn" value="PIN Change" name="pswchange" />
-								</form>
-							</a>
-						</li>
-						<li>
-							<a href="./downloads.php">
-								<span>Download</span>
-							</a>
-						</li>
-						<li>
-							<a href="/logout">
-								LOGOUT
-							</a>
-						</li>
-					</ul>
-				</div>
-	</div>
-	</div>			
-
-            <div class="fbar">MR. <%=userData.faculty_name %> ( <%=userData.designation %> ) </div>
-            		<div class="datebar">Dated: <%= date %></div>
-	</div>
+          
 	
 	<div  class="entry">
 	<div class="entry1">
 
-	
-	<div id="archive" class="search" style="display='block'">
+	<!-- code for archive record -->
+
+	<div id="archive" class="search" style="display='none'">
 		<div class="search1">'
 			
 			<table class="archive-font">
@@ -239,7 +169,7 @@ header("Location:./index.php");
 					<input type="hidden" name="sname" value="<%= row.subject_name %>">
 					<input  name="pname" type="hidden" value="<%= row.pf_name %>">
 					<input  name="class_name" type="hidden" value="<%= row.class_name %>" >
-					<button type="submit">Attendance List</button>
+					<button class='bt1 custom' type="submit">Attendance List</button>
 					</form>
 				</td>
 				</tr>
@@ -250,7 +180,9 @@ header("Location:./index.php");
 		</table>
 		</div>
 	</div>
-		
+	
+	<!-- Code for Inter record -->
+
 	<% psfData.forEach((row, index) => { %>
 		
 
@@ -296,12 +228,90 @@ header("Location:./index.php");
 			<%}%>
 
 			<%})%>
+
+		<!-- Code for BS -->
+	<% psfData.forEach((row, index) => { %>
+		
+
+		<%if(row.psf_status==1 && row.duration==4){%>
+			<div class="search"><div class="search1">	
+				<button name="course_file" value="" class="bt11" type="submit">Print Course File</button>
+			<button name="a_list" value="Click" class="bt11">
 				
+				Today\'s Attendance : <%=date%><br><%=row.program_name.toUpperCase()%><br><%= row.class_name%><br><%= row.subject_name%>
+				</button>
+
+				<select class="selectdate" name="month" id="monthDropdown" >
+						<% if (row.months) { 
+								row.months.split(",").forEach(m => { 
+								let year = m.substring(0,4);
+								let month = m.substring(5,7);
+
+								const monthNames = [
+													"Jan","Feb","Mar","April","May","June",
+													"July","Aug","Sept","Oct","Nov","Dec"
+								];
+								let monthName = monthNames[parseInt(month)-1];
+						%>
+							<option value="<%= month %>-01">
+								<%= monthName %> - <%= year %>
+							</option>
+						<%   }) 
+							} else { %>
+							<option value="">No Records</option>
+						<% } %>
+					</select>        
+					<button name="all_list" value="" class="bt3" type="submit">Full Attendence List</button>
+					<hr>
+					<button name="inprevious" value="" class="bt11" type="submit">Mark Previous Attendance</button>
+					<button name="markleave" value="" class="bt11" type="submit">Update Attendance (Individual)</button>
+					<div class="mid-term">
+				<label class="heading">Mid-Term</label><hr>
+					<button name="marking" value="mid_term_marking" class="bt11" type="submit" onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px;" >Marking</button>
+						<button name="result" value="mid_term_result" class="bt11" type="submit" onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px;">View Result</button>
+						<button name="result_update" value="mid_term_result_update" class="bt11" onclick="setExamValue(\'MID-TERM\')" type="submit" style="margin-right: 10px;" >Update</button>
+						}				</div>
+				<div class="presentation">
+				<label class="heading">Presentation</label><hr>
+				<button name="marking" value="Presentation_Marks" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >Marking</button>
+				<button name="result" value="Presentation_Result" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >View Result</button>
+				<button name="result_update" value="Presentation_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >Update</button>
+				
+				</div>
+				<div class="quiz">
+				<label class="heading">Quiz</label><hr>
+				<button name="marking" value="Quiz_Marks" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >Marking</button>
+					<button name="result" value="Quiz_Result" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >View Result</button>
+				<button name="result_update" value="Quiz_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >Update</button>
+				
+				</div>
+				<div class="assignment">
+				<label class="heading">Assignment</label><hr>
+						<button name="marking" value="Assignment_Marks" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >Marking</button>
+						<button name="result" value="Assignment_Result" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >View Result</button>
+						<button name="result_update" value="Assignment_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >Update</button>
+				
+				</div>
+				<div class="topics">
+				<label class="heading">Course File Topics</label><hr>
+						<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')"  style="margin-right: 10px;" >Presentation</button>
+						<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')"  style="margin-right: 10px;" >Quiz</button>
+						<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')"  style="margin-right: 10px;" >Assignment</button>
+						<button name="Weekly_Topics" value="" class="bt11" type="submit" onclick="setExamValue(\'Weekly_Topics\')"  style="margin-right: 10px;" >Weekly_Topics</button>
+						
+						
+				</div>
+
+			</div></div>		
+			<%}%>
+
+			<%})%>	
 
 
-
-	</div></div>
-
+		</div>
+	</div>
+	
+<%- include('footer.ejs')%>
 	<script>
 
 			
@@ -323,7 +333,7 @@ header("Location:./index.php");
 			function toggleMenu() {
 				var menu = document.getElementById('dropdownMenu');
 				if (menu.style.display === 'none' || menu.style.display === '') {
-					menu.style.display = 'block';
+					menu.style.display = 'flex';
 				} else {
 					menu.style.display = 'none';
 				}

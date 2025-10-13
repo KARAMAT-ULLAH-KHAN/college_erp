@@ -2,53 +2,10 @@ body {
     background-color: grey;
 	   text-align: center;
 	justify-content: center;
+    font-size:16px;
+    margin:0px;
 	}
-		.header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fff;
-            padding: 5px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header .imglogo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-		.header .img3 {
-            width: 20px;
-            height: 20px;
-			margin-left: 10px;
-			cursor:pointer;
-        }
-        .header .tab{
-            font-size: 12px;
-            color: #000;
-            font-family: 'Times New Roman', Times, serif;
-            text-align: left;
-        }
-		.logout{
-			position: relative;
-    		display: inline-block;
-		}
-		.logout .bt21{
-			background-color: transparent;
-			color: darkgray;
-			border-color: lightslategray;
-			cursor: pointer;
-			width: 50px;
-			height: 50px;
-			border-radius: 50%;
-			margin-left: 20%;
-		}
-		.logout .bt21:hover{
-			background-color: darkgrey;
-			color: white;
-		}
+		
 .login-container {
     background-color: #C6F6C6;
     border-radius: 0px;
@@ -82,7 +39,7 @@ body {
 	overflow-x: auto;
 }
 .archive-font{
-            font-size: 10px;
+            font-size:0.6rem;
 			width:100%;
             color: #000;
             font-family: 'Times New Roman', Times, serif;
@@ -116,10 +73,7 @@ lable{
 color: white;
 }
 
-.fbar{
-	background-color: gold;
-	margin-top: 2px;
-}
+
 .datebar{
 	background-color:Tomato;
 }
@@ -134,7 +88,7 @@ color: white;
 	border: 3px solid #008CBA;
 	width:100%;
 	font-weight: bold;
-	font-size: 10px;
+	font-size:0.6rem;
 	cursor: pointer;
 	color:#008CBA;
 	box-shadow: 0 0 10px rgba(100, 0, 100, 0.9),
@@ -153,7 +107,7 @@ color: white;
 	width: 100%;
 	cursor: pointer;
 	font-weight: bold;
-	font-size: 10px;
+	font-size:0.6rem;
 	color:#f44336;
 	box-shadow: 0 0 10px rgba(100, 0, 100, 0.9),
 		inset 0 2px 5px rgba(0, 0, 0, 0.7); /* Inner shadow */
@@ -190,7 +144,7 @@ color: white;
 }
 .heading{
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	font-size: 14px;
+	font-size:0.6rem;
 	font-weight: bold;
 	color:darkslategrey;
 }
@@ -218,13 +172,14 @@ color: white;
   .selectdate {
     padding: 5px;
 	width:  100px;
+    font-size:0.6rem;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: lightblue;
 	text-align: center;
     background-position: right center;
   }
-}
+
   .monthlylist {
     padding: 50px;
 	width: 500px;
@@ -233,67 +188,23 @@ color: white;
   }
 #archive{
 	display:none;
+    font-size:0.3rem;
+    animation: top-to-bottom 0.4s ease-out; /* smoother and faster animation */
 }
-.sticky{
-	position: sticky;
-    top: 0; /* This ensures the container sticks to the top */
-    z-index: 1000; /* Ensures it stays above other content while scrolling */
-}
-/* Hide the dropdown menu by default */
-/* Position the dropdown menu beside the img3 */
-.dropdown-menu {
-    display: none;
-    list-style-type: none;
-    margin: 0;
-    padding: 10px;
-    background-color: #f9f9f9;
-    position: absolute;
-    right: 0; /* Position it to the right of img3 */
-    top: 80px; /* Vertically align with img3 */
-    /* transform: translateY(-50%); Center it vertically */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    width: 150px;
-    border-radius: 4px;
-	animation: left-right 1s ease-out; /* Apply animation */
-   
-}
-@keyframes left-right {
+@keyframes top-to-bottom {
     from {
         opacity: 0;
-        transform: translateX(40px);
+        transform: translateY(-20px); /* start slightly offscreen to the right */
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(4px0); /* slide into final position */
     }
 }
-/* Style the list items */
-.dropdown-menu li {
-    padding: 2px 6px;
-	/*text-align: right;*/
-	border-bottom: 1px;
+.custom{
+    padding: 10px 10px;
 }
 
-.dropdown-menu li a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-}
-
-.dropdown-menu li a:hover {
-    background-color: #ddd;
-}
-.dropbtn{
-	background-color: transparent; /* Make the background transparent */
-    border: none; /* Remove the border */
-    color: inherit; /* Keep the text color as inherited from parent */
-    cursor: pointer; /* Change the cursor to a pointer */
-    padding: 0; /* Remove any padding */
-    font: inherit; /* Inherit font settings from parent */
-    text-align: center; /* Center the text */
-    outline: none; /* Remove the default focus outline */
-}
 /* Style for the banner container */
 .banner {
         background-color: #ffeb3b; /* Bright yellow background for attention */
@@ -302,7 +213,7 @@ color: white;
         padding: 20px;
         border: 2px solid #fbc02d; /* Accent border color */
         font-family: Arial, sans-serif;
-        font-size: 1.2em;
+        font-size:0.6rem;
         position: relative;
         margin: 20px;
         border-radius: 8px;
@@ -312,7 +223,7 @@ color: white;
 
     /* Attention icon */
     .banner .icon {
-        font-size: 2em;
+        font-size:0.6rem;
         margin-right: 10px;
         color: #f57f17;
         vertical-align: middle;
@@ -338,7 +249,15 @@ color: white;
         top: 10px;
         background-color: transparent;
         border: none;
-        font-size: 1.2em;
+        font-size:0.6rem;
         color: #333;
         cursor: pointer;
+    }
+    @media(max-width:400px){
+        .bt1,.bt11{
+            font-size:0.5rem;
+        }
+        td{
+            font-size:0.5rem;
+        }
     }

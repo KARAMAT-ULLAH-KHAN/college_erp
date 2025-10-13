@@ -1,0 +1,76 @@
+<div class="sticky">
+	<div class="login-container">
+    	<div class="header">
+       		 <img class="imglogo" src="./img/logo.png" alt="Logo">
+				<label for="tab-1" class="tab">GOVT DEGREE COLLEGE MATHRA<br>KHYBER PAKHTUNKHWA</label>
+				<div class="logout">
+					<form name="form1" action="" method="POST">
+						<img class="img3" src="./img/three_line2.png" alt="Logo"
+							onclick="toggleMenu()">
+					</form>
+					
+				</div>
+		</div>
+	</div>
+  	<div class="fbar">MR. <%=userData.faculty_name %> ( <%=userData.designation %> ) </div>
+    <div class="datebar">Dated: <%= date %></div>
+</div>
+	<ul id="dropdownMenu" class="dropdown-menu">
+						<li>
+							<a href="#">
+								<input type="submit" class="dropbtn" onclick="archive()" value="Archive" name="archive" />
+							</a>
+						</li>
+						<li>
+							<form name="form1" action="fine_apply.php" method="POST">
+							<a href="#"></a>
+								<?php
+									if($_SESSION["fid"]==22||$_SESSION["fid"]==24){
+										echo	'<input type="submit" class="dropbtn" value="Student Fine" name="Student_Fine" />';
+									}
+								?>
+							</a>
+							</form>
+						</li>
+
+						<li>
+							<form name="form1" action="fine_collection.php" method="POST">
+							<a href="#"></a>
+								<?php
+									if($_SESSION["fid"]==13){
+										echo	'<input type="submit" class="dropbtn" value="Student Fine Collection" name="Student_Fine_collection" />';
+									}
+								?>
+							</a>
+							</form>
+						</li>
+						<li>
+							<form name="form1" action="struckoff.php" method="POST">
+							<a href="#"></a>
+								<?php
+									if($_SESSION["fid"]==15){
+										echo	'<input type="submit" class="dropbtn" value="StruckOff List" name="StruckOff_List" />';
+									}
+								?>
+							</a>
+							</form>
+						</li>
+						<li>
+							<a href="./forgot-password">
+								
+									
+									<input type="submit" class="dropbtn" value="PIN Change" name="pswchange" />
+								
+							</a>
+						</li>
+						<li>
+							<a href="./downloads">
+								<input type="submit" class="dropbtn" value="Download" name="download" />
+							</a>
+						</li>
+						<li>
+							<a href="/logout">
+								<input type="submit" class="dropbtn" value="Logout" name="logout" />
+							</a>
+						</li>
+					</ul>

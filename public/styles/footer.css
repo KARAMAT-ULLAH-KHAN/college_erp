@@ -1,0 +1,19 @@
+.footer-container {
+    background-color: #7a1919ff;
+    border-radius: 0px;
+    padding: 0px;
+    text-align: center;
+	box-shadow: 0 0 10px rgba(0, 100, 0, 0.9);
+    margin-top:50px;
+    position:relative;
+    bottom:0px;
+    padding: 10px 0px;
+    color:white
+	/*opacity: 0.7;*/
+}
+@media(max-width:400px){
+    .footer-container {
+    position:sticky;
+    font-size:0.6rem;
+    }
+}
