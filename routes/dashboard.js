@@ -39,7 +39,7 @@ export default function dashboard(db){
                                     LEFT JOIN student st ON e.student_id = st.student_id
                                 WHERE psf.faculty_id = $1
                                 GROUP BY psf.psf_id, psf.faculty_id, f.faculty_name,pcs.duration, p.program_name, c.class_name, sec.section_name, s.subject_name, pcs.program_id
-                                ORDER BY psf.psf_id`,
+                                ORDER BY pcs.duration,psf.psf_id`,
                                 [req.user.faculty_id]
                                 );
 

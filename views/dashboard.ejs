@@ -107,7 +107,7 @@ header("Location:./index.php");
 
           
 	
-	<div  class="entry">
+<div  class="entry">
 	<div class="entry1">
 
 	<!-- code for archive record -->
@@ -187,7 +187,7 @@ header("Location:./index.php");
 		
 
 		<%if(row.psf_status==1 && row.duration==2){%>
-			<div class="search"><div class="search1">	
+			<div class="search psf<%=row.duration%>" ><div class="search1">	
 			<button name="a_list" value="Click" class="bt1">
 				
 				Today\'s Attendance : <%=date%><br><%=row.program_name.toUpperCase()%><br><%= row.class_name%><br><%= row.subject_name%>
@@ -227,14 +227,10 @@ header("Location:./index.php");
 			</div></div>		
 			<%}%>
 
-			<%})%>
-
-		<!-- Code for BS -->
-	<% psfData.forEach((row, index) => { %>
 		
 
 		<%if(row.psf_status==1 && row.duration==4){%>
-			<div class="search"><div class="search1">	
+			<div class="search psf<%=row.duration%>"><div class="search1">	
 				<button name="course_file" value="" class="bt11" type="submit">Print Course File</button>
 			<button name="a_list" value="Click" class="bt11">
 				
@@ -311,12 +307,12 @@ header("Location:./index.php");
 		</div>
 	</div>
 	
-<%- include('footer.ejs')%>
+	<%- include('footer.ejs')%>
 	<script>
 
 			
 
-					function setExamValue(value) {
+			function setExamValue(value) {
 						let elements = document.getElementsByClassName('exam');
 						for (let i = 0; i < elements.length; i++) {
 							elements[i].value = value;
@@ -348,6 +344,15 @@ header("Location:./index.php");
 					menu.style.display = 'none';
 				}
 			});
+			// window.addEventListener('DOMContentLoaded', function() {
+			// 	var psfDuration = document.getElementsByClassName('psf2');
+			// 	if (psfDuration) {
+			// 		for (let i = 0; i < psfDuration.length; i++) {
+			// 				psfDuration[i].style.display = 'none';
+			// 			}
+					
+			// 	}
+			// });
 	</script>
 </body>
 </html>
