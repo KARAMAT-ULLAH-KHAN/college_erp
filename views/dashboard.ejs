@@ -128,7 +128,8 @@ header("Location:./index.php");
 								</tr>
 							</thead>
 							<tbody>
-								<% psfData.forEach((row, index)=> { %> <% if (row.psf_status==0) { %>
+								<% psfData.forEach((row, index)=> { %> 
+									<% if (row.psf_status==0) { %>
 										<tr>
 											<td>
 												<%= index + 1 %>
@@ -153,7 +154,9 @@ header("Location:./index.php");
 											</td>
 											<td>
 												<select class="selectdate" name="month" id="monthDropdown">
-													<% if (row.months) { row.months.split(",").forEach(m=> {
+													<% if (row.months) 
+													{ 
+														row.months.split(",").forEach(m=> {
 														let year = m.substring(0,4); let month = m.substring(5,7);
 														const monthNames = [
 														"Jan","Feb","Mar","April","May","June",
@@ -164,7 +167,7 @@ header("Location:./index.php");
 														</option>
 														<% }) } else { %>
 															<option value="">No Records</option>
-															<% } %>
+													<% } %>
 												</select>
 											</td>
 											<td>
