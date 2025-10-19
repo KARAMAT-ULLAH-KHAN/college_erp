@@ -86,273 +86,401 @@ header("Location:./index.php");
 }
 ?> -->
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-	<title>Program Record Entry</title>
-	<link rel="stylesheet" href="../styles/dashboard.css">
-	<link rel="stylesheet" href="../styles/header.css">
-	<link rel="stylesheet" href="../styles/footer.css">
-<script>
-			function setExamValue(exam) {
-				document.getElementById('exam').value = exam;
-			}
-			
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-</script>
-</head>
-<body>
-	<%- include('header.ejs')%>			
+    <title>Program Record Entry</title>
+    <link rel="stylesheet" href="../styles/dashboard.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <script>
+      function setExamValue(exam) {
+        document.getElementById("exam").value = exam;
+      }
+    </script>
+  </head>
+  <body>
+    <%- include('header.ejs')%>
 
-          
-	
-<div  class="entry">
-	<div class="entry1">
+    <div class="entry">
+      <div class="entry1">
+        <!-- code for archive record -->
 
-	<!-- code for archive record -->
+        <div id="archive" class="search" style="display='none'">
+          <div class="search1">
+            '
 
-	<div id="archive" class="search" style="display='none'">
-		<div class="search1">'
-			
-			<table class="archive-font">
-				<thead>    
-				<tr class="archive-font">
-					<td>S.No</td>
-					<td>PSF_ID</td>
-					<td>INSTRUCTOR</td>
-					<td>PROGRAM</td>
-					<td>SECTION</td>
-					<td>YEAR</td>
-					<td>SUBJECT</td>
-					<td>MONTH</td>
-					<td>ACTION</td>
-				</tr>
-			</thead>
-			<tbody>
-			<% psfData.forEach((row, index) => { %>
-				<% if (row.psf_status==0) { %>
-				<tr>
-				<td><%= index + 1 %></td>
-				<td><%= row.psf_id %></td>
-				<td><%= row.faculty_name.toUpperCase() %></td>
-				<td><%= row.program_name %></td>
-				<td><%= row.class_name %> - <%= row.section_name %></td>
-				<td><%= row.year %></td>
-				<td><%= row.subject_name %></td>
-				<td>
-					<select class="selectdate" name="month" id="monthDropdown" >
-						<% if (row.months) { 
-								row.months.split(",").forEach(m => { 
-								let year = m.substring(0,4);
-								let month = m.substring(5,7);
+            <table class="archive-font">
+              <thead>
+                <tr class="archive-font">
+                  <td>S.No</td>
+                  <td>PSF_ID</td>
+                  <td>INSTRUCTOR</td>
+                  <td>PROGRAM</td>
+                  <td>SECTION</td>
+                  <td>YEAR</td>
+                  <td>SUBJECT</td>
+                  <td>MONTH</td>
+                  <td>ACTION</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% psfData.forEach((row, index) => { %> <% if
+                (row.psf_status==0) { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= row.psf_id %></td>
+                  <td><%= row.faculty_name.toUpperCase() %></td>
+                  <td><%= row.program_name %></td>
+                  <td><%= row.class_name %> - <%= row.section_name %></td>
+                  <td><%= row.year %></td>
+                  <td><%= row.subject_name %></td>
+                  <td>
+                    <select class="selectdate" name="month" id="monthDropdown">
+                      <% if (row.months) { row.months.split(",").forEach(m => {
+                      let year = m.substring(0,4); let month = m.substring(5,7);
+                      const monthNames = [
+                      "Jan","Feb","Mar","April","May","June",
+                      "July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
+                      monthNames[parseInt(month)-1]; %>
+                      <option value="<%= month %>-01">
+                        <%= monthName %> - <%= year %>
+                      </option>
+                      <% }) } else { %>
+                      <option value="">No Records</option>
+                      <% } %>
+                    </select>
+                  </td>
+                  <td>
+                    <form method="POST" action="/printpdf">
+                      <input
+                        type="hidden"
+                        name="psfid"
+                        value="<%= row.psf_id %>"
+                      />
+                      <input
+                        type="hidden"
+                        name="pid"
+                        value="<%= row.program_id %>"
+                      />
+                      <input
+                        type="hidden"
+                        name="sname"
+                        value="<%= row.subject_name %>"
+                      />
+                      <input
+                        name="pname"
+                        type="hidden"
+                        value="<%= row.pf_name %>"
+                      />
+                      <input
+                        name="class_name"
+                        type="hidden"
+                        value="<%= row.class_name %>"
+                      />
+                      <button class="bt1 custom" type="submit">
+                        Attendance List
+                      </button>
+                    </form>
+                  </td>
+                </tr>
 
-								const monthNames = [
-													"Jan","Feb","Mar","April","May","June",
-													"July","Aug","Sept","Oct","Nov","Dec"
-								];
-								let monthName = monthNames[parseInt(month)-1];
-						%>
-							<option value="<%= month %>-01">
-								<%= monthName %> - <%= year %>
-							</option>
-						<%   }) 
-							} else { %>
-							<option value="">No Records</option>
-						<% } %>
-					</select>
-				</td>
-				<td>
-					<form method="POST" action="/printpdf">
-					<input type="hidden" name="psfid" value="<%= row.psf_id %>">
-					<input type="hidden" name="pid" value="<%= row.program_id %>">
-					<input type="hidden" name="sname" value="<%= row.subject_name %>">
-					<input  name="pname" type="hidden" value="<%= row.pf_name %>">
-					<input  name="class_name" type="hidden" value="<%= row.class_name %>" >
-					<button class='bt1 custom' type="submit">Attendance List</button>
-					</form>
-				</td>
-				</tr>
-				
-				<% } %>
-			<% }) %>
-		</tbody>
-		</table>
-		</div>
-	</div>
-	
-	<!-- Code for Inter record -->
+                <% } %> <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-	<% psfData.forEach((row, index) => { %>
-		
+        //Code for Inter record <% psfData.forEach((row, index) => { %>
+        <%if(row.psf_status==1 && row.duration==2){%>
+        <div class="search psf<%=row.duration%>">
+          <div class="search1">
+            <button name="a_list" value="Click" class="bt1">
+              Today\'s Attendance : <%=date%><br /><%=row.program_name.toUpperCase()%><br /><%=
+              row.class_name%><br /><%= row.subject_name%>
+            </button>
 
-		<%if(row.psf_status==1 && row.duration==2){%>
-			<div class="search psf<%=row.duration%>" ><div class="search1">	
-			<button name="a_list" value="Click" class="bt1">
-				
-				Today\'s Attendance : <%=date%><br><%=row.program_name.toUpperCase()%><br><%= row.class_name%><br><%= row.subject_name%>
-				</button>
+            <select class="selectdate" name="month" id="monthDropdown">
+              <% if (row.months) { row.months.split(",").forEach(m => { let year
+              = m.substring(0,4); let month = m.substring(5,7); const monthNames
+              = [ "Jan","Feb","Mar","April","May","June",
+              "July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
+              monthNames[parseInt(month)-1]; %>
+              <option value="<%= month %>-01">
+                <%= monthName %> - <%= year %>
+              </option>
+              <% }) } else { %>
+              <option value="">No Records</option>
+              <% } %>
+            </select>
+            <button name="all_list" value="" class="bt3" type="submit">
+              Full Attendence List
+            </button>
+            <hr />
+            <button name="inprevious" value="" class="bt1" type="submit">
+              Mark Previous Attendance
+            </button>
+            <button name="markleave" value="" class="bt1" type="submit">
+              Update Attendance (Individual)
+            </button>
+            <div class="mid-term">
+              <label class="heading">Pre-Board</label>
+              <hr />
+              <button
+                name="marking"
+                value="pre_board_marking"
+                class="bt1"
+                type="submit"
+                style="margin-right: 10px"
+              >
+                Marking
+              </button>
+              <button
+                name="result"
+                value="pre_board_result"
+                class="bt1"
+                type="submit"
+                style="margin-right: 10px"
+              >
+                View Result
+              </button>
+              <button
+                name="result_update"
+                value=""
+                class="bt1"
+                type="submit"
+                style="margin-right: 10px"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+        <%}%> <%if(row.psf_status==1 && row.duration==4){%>
+        <div class="search psf<%=row.duration%>">
+          <div class="search1">
+            <button name="course_file" value="" class="bt11" type="submit">
+              Print Course File
+            </button>
+            <button name="a_list" value="Click" class="bt11">
+              Today\'s Attendance : <%=date%><br /><%=row.program_name.toUpperCase()%><br /><%=
+              row.class_name%><br /><%= row.subject_name%>
+            </button>
 
-				<select class="selectdate" name="month" id="monthDropdown" >
-						<% if (row.months) { 
-								row.months.split(",").forEach(m => { 
-								let year = m.substring(0,4);
-								let month = m.substring(5,7);
+            <select class="selectdate" name="month" id="monthDropdown">
+              <% if (row.months) { row.months.split(",").forEach(m => { let year
+              = m.substring(0,4); let month = m.substring(5,7); const monthNames
+              = [ "Jan","Feb","Mar","April","May","June",
+              "July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
+              monthNames[parseInt(month)-1]; %>
+              <option value="<%= month %>-01">
+                <%= monthName %> - <%= year %>
+              </option>
+              <% }) } else { %>
+              <option value="">No Records</option>
+              <% } %>
+            </select>
+            <button name="all_list" value="" class="bt3" type="submit">
+              Full Attendence List
+            </button>
+            <hr />
+            <button name="inprevious" value="" class="bt11" type="submit">
+              Mark Previous Attendance
+            </button>
+            <button name="markleave" value="" class="bt11" type="submit">
+              Update Attendance (Individual)
+            </button>
+            <div class="mid-term">
+              <label class="heading">Mid-Term</label>
+              <hr />
+              <button
+                name="marking"
+                value="mid_term_marking"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'MID-TERM\')"
+                style="margin-right: 10px"
+              >
+                Marking
+              </button>
+              <button
+                name="result"
+                value="mid_term_result"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'MID-TERM\')"
+                style="margin-right: 10px"
+              >
+                View Result
+              </button>
+              <button
+                name="result_update"
+                value="mid_term_result_update"
+                class="bt11"
+                onclick="setExamValue(\'MID-TERM\')"
+                type="submit"
+                style="margin-right: 10px"
+              >
+                Update
+              </button>
+              }
+            </div>
+            <div class="presentation">
+              <label class="heading">Presentation</label>
+              <hr />
+              <button
+                name="marking"
+                value="Presentation_Marks"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'PRESENTATION\')"
+                style="margin-right: 10px"
+              >
+                Marking
+              </button>
+              <button
+                name="result"
+                value="Presentation_Result"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'PRESENTATION\')"
+                style="margin-right: 10px"
+              >
+                View Result
+              </button>
+              <button
+                name="result_update"
+                value="Presentation_Result_Update"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'PRESENTATION\')"
+                style="margin-right: 10px"
+              >
+                Update
+              </button>
+            </div>
+            <div class="quiz">
+              <label class="heading">Quiz</label>
+              <hr />
+              <button
+                name="marking"
+                value="Quiz_Marks"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'QUIZ\')"
+                style="margin-right: 10px"
+              >
+                Marking
+              </button>
+              <button
+                name="result"
+                value="Quiz_Result"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'QUIZ\')"
+                style="margin-right: 10px"
+              >
+                View Result
+              </button>
+              <button
+                name="result_update"
+                value="Quiz_Result_Update"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'QUIZ\')"
+                style="margin-right: 10px"
+              >
+                Update
+              </button>
+            </div>
+            <div class="assignment">
+              <label class="heading">Assignment</label>
+              <hr />
+              <button
+                name="marking"
+                value="Assignment_Marks"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'ASSIGNMENT\')"
+                style="margin-right: 10px"
+              >
+                Marking
+              </button>
+              <button
+                name="result"
+                value="Assignment_Result"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'ASSIGNMENT\')"
+                style="margin-right: 10px"
+              >
+                View Result
+              </button>
+              <button
+                name="result_update"
+                value="Assignment_Result_Update"
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'ASSIGNMENT\')"
+                style="margin-right: 10px"
+              >
+                Update
+              </button>
+            </div>
+            <div class="topics">
+              <label class="heading">Course File Topics</label>
+              <hr />
+              <button
+                name="topics"
+                value=""
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'PRESENTATION\')"
+                style="margin-right: 10px"
+              >
+                Presentation
+              </button>
+              <button
+                name="topics"
+                value=""
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'QUIZ\')"
+                style="margin-right: 10px"
+              >
+                Quiz
+              </button>
+              <button
+                name="topics"
+                value=""
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'ASSIGNMENT\')"
+                style="margin-right: 10px"
+              >
+                Assignment
+              </button>
+              <button
+                name="Weekly_Topics"
+                value=""
+                class="bt11"
+                type="submit"
+                onclick="setExamValue(\'Weekly_Topics\')"
+                style="margin-right: 10px"
+              >
+                Weekly_Topics
+              </button>
+            </div>
+          </div>
+        </div>
+        <%}%> <%})%>
+      </div>
+    </div>
 
-								const monthNames = [
-													"Jan","Feb","Mar","April","May","June",
-													"July","Aug","Sept","Oct","Nov","Dec"
-								];
-								let monthName = monthNames[parseInt(month)-1];
-						%>
-							<option value="<%= month %>-01">
-								<%= monthName %> - <%= year %>
-							</option>
-						<%   }) 
-							} else { %>
-							<option value="">No Records</option>
-						<% } %>
-					</select>        
-					<button name="all_list" value="" class="bt3" type="submit">Full Attendence List</button>
-					<hr>
-					<button name="inprevious" value="" class="bt1" type="submit">Mark Previous Attendance</button>
-					<button name="markleave" value="" class="bt1" type="submit">Update Attendance (Individual)</button>
-					<div class="mid-term">
-						<label class="heading">Pre-Board</label><hr>
-						<button name="marking" value="pre_board_marking" class="bt1" type="submit" style="margin-right: 10px;" >Marking</button>  
-						<button name="result" value="pre_board_result" class="bt1" type="submit" style="margin-right: 10px;">View Result</button>  
-						<button name="result_update" value="" class="bt1" type="submit" style="margin-right: 10px;" >Update</button>
-					</div>
+    <%- include('footer.ejs')%>
+    <script src="../scripts/dashboardScript.js">
+		</script>
 
-			</div></div>		
-			<%}%>
-
-		
-
-		<%if(row.psf_status==1 && row.duration==4){%>
-			<div class="search psf<%=row.duration%>"><div class="search1">	
-				<button name="course_file" value="" class="bt11" type="submit">Print Course File</button>
-			<button name="a_list" value="Click" class="bt11">
-				
-				Today\'s Attendance : <%=date%><br><%=row.program_name.toUpperCase()%><br><%= row.class_name%><br><%= row.subject_name%>
-				</button>
-
-				<select class="selectdate" name="month" id="monthDropdown" >
-						<% if (row.months) { 
-								row.months.split(",").forEach(m => { 
-								let year = m.substring(0,4);
-								let month = m.substring(5,7);
-
-								const monthNames = [
-													"Jan","Feb","Mar","April","May","June",
-													"July","Aug","Sept","Oct","Nov","Dec"
-								];
-								let monthName = monthNames[parseInt(month)-1];
-						%>
-							<option value="<%= month %>-01">
-								<%= monthName %> - <%= year %>
-							</option>
-						<%   }) 
-							} else { %>
-							<option value="">No Records</option>
-						<% } %>
-					</select>        
-					<button name="all_list" value="" class="bt3" type="submit">Full Attendence List</button>
-					<hr>
-					<button name="inprevious" value="" class="bt11" type="submit">Mark Previous Attendance</button>
-					<button name="markleave" value="" class="bt11" type="submit">Update Attendance (Individual)</button>
-					<div class="mid-term">
-				<label class="heading">Mid-Term</label><hr>
-					<button name="marking" value="mid_term_marking" class="bt11" type="submit" onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px;" >Marking</button>
-						<button name="result" value="mid_term_result" class="bt11" type="submit" onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px;">View Result</button>
-						<button name="result_update" value="mid_term_result_update" class="bt11" onclick="setExamValue(\'MID-TERM\')" type="submit" style="margin-right: 10px;" >Update</button>
-						}				</div>
-				<div class="presentation">
-				<label class="heading">Presentation</label><hr>
-				<button name="marking" value="Presentation_Marks" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >Marking</button>
-				<button name="result" value="Presentation_Result" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >View Result</button>
-				<button name="result_update" value="Presentation_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px;" >Update</button>
-				
-				</div>
-				<div class="quiz">
-				<label class="heading">Quiz</label><hr>
-				<button name="marking" value="Quiz_Marks" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >Marking</button>
-					<button name="result" value="Quiz_Result" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >View Result</button>
-				<button name="result_update" value="Quiz_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px;" >Update</button>
-				
-				</div>
-				<div class="assignment">
-				<label class="heading">Assignment</label><hr>
-						<button name="marking" value="Assignment_Marks" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >Marking</button>
-						<button name="result" value="Assignment_Result" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >View Result</button>
-						<button name="result_update" value="Assignment_Result_Update" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px;" >Update</button>
-				
-				</div>
-				<div class="topics">
-				<label class="heading">Course File Topics</label><hr>
-						<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'PRESENTATION\')"  style="margin-right: 10px;" >Presentation</button>
-						<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'QUIZ\')"  style="margin-right: 10px;" >Quiz</button>
-						<button name="topics" value="" class="bt11" type="submit" onclick="setExamValue(\'ASSIGNMENT\')"  style="margin-right: 10px;" >Assignment</button>
-						<button name="Weekly_Topics" value="" class="bt11" type="submit" onclick="setExamValue(\'Weekly_Topics\')"  style="margin-right: 10px;" >Weekly_Topics</button>
-						
-						
-				</div>
-
-			</div></div>		
-			<%}%>
-
-			<%})%>	
-
-
-		</div>
-	</div>
-	
-	<%- include('footer.ejs')%>
-	<script>
-
-			
-
-			function setExamValue(value) {
-						let elements = document.getElementsByClassName('exam');
-						for (let i = 0; i < elements.length; i++) {
-							elements[i].value = value;
-						}
-			}
-			function archive(){
-				var x= document.getElementById("archive");
-				if(x.style.display==="block"){
-					x.style.display="none";
-				}else{
-					x.style.display="block";
-				}
-			}
-			function toggleMenu() {
-				var menu = document.getElementById('dropdownMenu');
-				if (menu.style.display === 'none' || menu.style.display === '') {
-					menu.style.display = 'flex';
-				} else {
-					menu.style.display = 'none';
-				}
-			}
-
-			// Optional: Close the menu when clicking outside of it
-			document.addEventListener('click', function(event) {
-				var isClickInside = document.querySelector('.logout').contains(event.target);
-				var menu = document.getElementById('dropdownMenu');
-
-				if (!isClickInside) {
-					menu.style.display = 'none';
-				}
-			});
-			// window.addEventListener('DOMContentLoaded', function() {
-			// 	var psfDuration = document.getElementsByClassName('psf2');
-			// 	if (psfDuration) {
-			// 		for (let i = 0; i < psfDuration.length; i++) {
-			// 				psfDuration[i].style.display = 'none';
-			// 			}
-					
-			// 	}
-			// });
-	</script>
-</body>
+  </body>
 </html>
