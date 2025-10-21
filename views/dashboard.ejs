@@ -99,6 +99,15 @@ header("Location:./index.php");
 		function setExamValue(exam) {
 			document.getElementById("exam").value = exam;
 		}
+		setTimeout(() => {
+				const warning = document.getElementById("warning");
+				if (warning) {
+					warning.style.opacity = "50%"; // fade out
+					setTimeout(() => {
+						warning.style.display = "none"; // remove from layout after fade
+					}, 50); // match fade duration
+				}
+			}, 2000);
 	</script>
 </head>
 
@@ -108,7 +117,11 @@ header("Location:./index.php");
 		<div class="entry">
 			<div class="entry1">
 				<!-- code for archive record -->
-
+				<% if (locals.warning) { %>
+				 <div id="warning" class="warning-message">
+					<%=warning%>
+				 </div>
+				<% } %>
 				<div id="archive" class="search" style="display='none'">
 					<div class="search1">
 						'
@@ -193,62 +206,67 @@ header("Location:./index.php");
 				</div>
 
 				<!-- Code for Inter record  --> 
+
 				<% psfData.forEach((row, index)=> { %>
 					<%if(row.psf_status==1 && row.duration==2){%>
 						<div class="search psf<%=row.duration%>">
 							<div class="search1">
-								<button name="a_list" value="Click" class="bt1">
-									Today\'s Attendance : <%=date%><br />
-										<%=row.program_name.toUpperCase()%><br />
+								<form action="" method="post">
+									<button formaction="/attendance/currentAttendance" name="a_list" value="Click" class="bt1">
+											Today\'s Attendance : <%=date%><br />
+											<%=row.program_name.toUpperCase()%> <br/>
 											<%= row.class_name%><br />
-												<%= row.subject_name%>
-								</button>
+											<%= row.subject_name%>
+									</button>
 
-								<select class="selectdate" name="month" id="monthDropdown">
-									<% if (row.months) { row.months.split(",").forEach(m=> { let year
-										= m.substring(0,4); let month = m.substring(5,7); const monthNames
-										= [ "Jan","Feb","Mar","April","May","June",
-										"July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
-										monthNames[parseInt(month)-1]; %>
-										<option value="<%= month %>-01">
-											<%= monthName %> - <%= year %>
-										</option>
-										<% }) } else { %>
-											<option value="">No Records</option>
-											<% } %>
-								</select>
-								<button name="all_list" value="" class="bt3" type="submit">
-									Full Attendence List
-								</button>
-								<hr />
-								<button name="inprevious" value="" class="bt1" type="submit">
-									Mark Previous Attendance
-								</button>
-								<button name="markleave" value="" class="bt1" type="submit">
-									Update Attendance (Individual)
-								</button>
-								<div class="mid-term">
-									<label class="heading">Pre-Board</label>
+									<select class="selectdate" name="month" id="monthDropdown">
+										<% if (row.months) { row.months.split(",").forEach(m=> { let year
+											= m.substring(0,4); let month = m.substring(5,7); const monthNames
+											= [ "Jan","Feb","Mar","April","May","June",
+											"July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
+											monthNames[parseInt(month)-1]; %>
+											<option value="<%= month %>-01">
+												<%= monthName %> - <%= year %>
+											</option>
+											<% }) } else { %>
+												<option value="">No Records</option>
+												<% } %>
+									</select>
+									<button name="all_list" value="" class="bt3" type="submit">
+										Full Attendence List
+									</button>
 									<hr />
-									<button name="marking" value="pre_board_marking" class="bt1" type="submit"
-										style="margin-right:10px">
-										Marking
+									<button name="inprevious" value="" class="bt1" type="submit">
+										Mark Previous Attendance
 									</button>
-									<button name="result" value="pre_board_result" class="bt1" type="submit"
-										style="margin-right: 10px">
-										View Result
+									<button name="markleave" value="" class="bt1" type="submit">
+										Update Attendance (Individual)
 									</button>
-									<button name="result_update" value="" class="bt1" type="submit"
-										style="margin-right: 10px">
-										Update
-									</button>
-								</div>
+									<div class="mid-term">
+										<label class="heading">Pre-Board</label>
+										<hr />
+										<button name="marking" value="pre_board_marking" class="bt1" type="submit"
+											style="margin-right:10px">
+											Marking
+										</button>
+										<button name="result" value="pre_board_result" class="bt1" type="submit"
+											style="margin-right: 10px">
+											View Result
+										</button>
+										<button name="result_update" value="" class="bt1" type="submit"
+											style="margin-right: 10px">
+											Update
+										</button>
+									</div>
+									<input type="hidden" name="pid" value="<%= row.program_id %>" />
+								</form>
 							</div>
 						</div>
 						<%}%>
-							<%if(row.psf_status==1 && row.duration==4){%>
-								<div class="search psf<%=row.duration%>">
+					<%if(row.psf_status==1 && row.duration==4){%>
+						<div class="search psf<%=row.duration%>">
 									<div class="search1">
+										
 										<button name="course_file" value="" class="bt11" type="submit">
 											Print Course File
 										</button>
@@ -298,7 +316,7 @@ header("Location:./index.php");
 												style="margin-right: 10px">
 												Update
 											</button>
-											}
+											
 										</div>
 										<div class="presentation">
 											<label class="heading">Presentation</label>
@@ -372,9 +390,9 @@ header("Location:./index.php");
 											</button>
 										</div>
 									</div>
-								</div>
-								<%}%>
-									<%})%>
+						</div>
+					<%}%>
+				<%})%>
 			</div>
 		</div>
 

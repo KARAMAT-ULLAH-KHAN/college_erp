@@ -17,6 +17,7 @@ body {
 .search{
 	
 	padding-top: 3px;
+    padding-bottom: 15px;
 	width: 100%; /* Use a percentage or max-width */
 	box-sizing: border-box; /* Include padding and border in the total width */
 	text-align: center;
@@ -36,6 +37,7 @@ body {
 	padding-bottom: 3%;
 	text-align: center;
 	align-items: center;
+    font-size: 1rem;
 	overflow-x: auto;
 }
 .archive-font{
@@ -45,6 +47,14 @@ body {
             font-family: 'Times New Roman', Times, serif;
 			text-align: center;
         }
+        table {
+			width: 80%;
+			border-collapse: collapse;
+			margin: auto;
+            font-size: 0.7rem;
+
+
+		}
 tr,td{
 			padding: 5px;
             text-align: center;
@@ -80,6 +90,18 @@ color: white;
  .white-text {
             color: white;
         }
+button {
+			background-color: red;
+			color: white;
+			padding: 10px 15px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+.highlighted-green {
+			background-color: green;
+			/* Change this to the desired highlight color */
+		}
 .bt1{
 	padding: 10px 20px; /* You can adjust the padding as needed */
 	margin-top:5px;
@@ -253,33 +275,6 @@ color: white;
         color: #333;
         cursor: pointer;
     }
-.warning-message {
-  position: fixed;        /* stays visible even when scrolling */
-  top: 10px;              /* small gap from the top */
-  right: 10px;            /* small gap from the right */
-  background-color: #f57f17;
-  color: white;
-  padding: 20px 15px;
-  border-radius: 10px;
-  width: 300px;           /* fixed width */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* optional nice shadow */
-  z-index: 999999999;     /* above everything */
-  font-weight: 500;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @media(max-width:400px){
         .bt1,.bt11{
             font-size:0.5rem;
@@ -287,4 +282,8 @@ color: white;
         td{
             font-size:0.5rem;
         }
+        .search1{
+            font-size: 0.6rem;
+        }
+     
     }

@@ -14,7 +14,6 @@ export default function dashboard(db){
            const psfRecord = await db.query(
                                 `SELECT 
                                     psf.psf_id,
-                                    psf.psf_id,
                                     psf.faculty_id,
                                     psf.psf_status,
                                     psf.year,
@@ -42,14 +41,14 @@ export default function dashboard(db){
                                 ORDER BY pcs.duration,psf.psf_id`,
                                 [req.user.faculty_id]
                                 );
-
-
+            //we store this data in session because it will be used again in several areas
+            req.session.psfRecord = psfRecord.rows; 
 
             console.log("User ID:", req.user.faculty_id, "--Months: ",psfRecord.rows[0].months);
-
+                               
             res.render("dashboard.ejs",{
                 userData: req.user,
-                psfData:  psfRecord.rows,
+                psfData:  req.session.psfRecord,
                 date: date
             });
         }else{

@@ -11,10 +11,12 @@ import { Strategy } from "passport-local";
 import session from "express-session";
 import dashboard from "./routes/dashboard.js";
 import logout from "./routes/logout.js";
+import attendance from "./routes/currentAttendance.js";
 
 
 const app = express();
 const port = 3000;
+const psfRecord=0;
 
 env.config();
 //using middleware
@@ -37,7 +39,7 @@ app.use(
         resave:false,   //stroing session data into postgreSQL, but for now, no need 
         saveUninitialized:true, //  session will be stored locally
         cookie:{
-            maxAge: 1000*60*60
+            maxAge: 6000*60*60
         }
     })
 )
@@ -56,8 +58,17 @@ app.use("/forgot-password",forgotPassword(db,bcrypt));
 app.use("/login",Login(db,bcrypt));
 app.use("/register",registerRoute(db,bcrypt));
 app.use("/dashboard",dashboard(db));
+app.use("/attendance",attendance(db));
 app.use("/logout",logout());
 
+
+
+
+
+
+app.get("/debug-session", (req, res) => {
+  res.json(req.session);
+});
 
 
 app.listen(port,()=>{

@@ -73,11 +73,11 @@
     align-items:center; */
     margin: 0;
     padding: 0;
-    background-color: #e7e1e1ff;
+    background-color: rgba(45, 42, 42, 0.935);
     opacity:90%;
     position: absolute;
     right: 0; /* flush to the right edge */
-    top: 92px;
+    top: 94px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     width: 300px;
     height: 1554px;
@@ -105,12 +105,13 @@
 
 .dropdown-menu li a {
     text-decoration: none;
-    color: #333;
+    color: white;
     display: block;
 }
 
 .dropdown-menu li a:hover {
     background-color: #ddd;
+    color: gray;
 }
 .dropbtn{
 	background-color: transparent; /* Make the background transparent */
@@ -132,16 +133,15 @@
     display: none;
     flex-direction:row;
     justify-content:center;
-    gap:10px;
     align-items:center;
     list-style-type: none;
     margin: 0;
-    padding: 0;
-    background-color: #e7e1e1ff;
+    padding: 0px 5px;
+    background-color: rgba(45, 42, 42, 0.935);
     opacity:90%;
     position: absolute;
     right: 0; /* flush to the right edge */
-    top: 82px;
+    top: 100px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     width: 100%;
     height: 80px;
