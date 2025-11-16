@@ -8,7 +8,7 @@ export default function dashboard(db){
         const month = String(d.getMonth() + 1).padStart(2, '0');
         const year = d.getFullYear();
         var date= `${day}-${month}-${year}`;
-   
+    
     router.get("/",async (req,res)=>{
         if(req.isAuthenticated()){
            const psfRecord = await db.query(
@@ -49,8 +49,10 @@ export default function dashboard(db){
             res.render("dashboard.ejs",{
                 userData: req.user,
                 psfData:  req.session.psfRecord,
+                warning:  req.query.warning,
                 date: date
             });
+            console.log(req.session.psfRecord);
         }else{
             res.render("index.ejs",{message:"please login first",error:"error"});
         }

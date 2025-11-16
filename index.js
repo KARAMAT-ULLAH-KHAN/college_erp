@@ -3,15 +3,16 @@ import bodyParser from "body-parser";
 import pg from "pg";
 import env from "dotenv";
 import bcrypt from "bcrypt";
-import registerRoute from "./routes/register.js";
-import forgotPassword from "./routes/forgotPassword.js";
-import Login from "./routes/login.js";
 import passport from "passport";
 import { Strategy } from "passport-local";
+
+import Login from "./routes/login.js";
 import session from "express-session";
 import dashboard from "./routes/dashboard.js";
 import logout from "./routes/logout.js";
 import attendance from "./routes/currentAttendance.js";
+import registerRoute from "./routes/register.js";
+import forgotPassword from "./routes/forgotPassword.js";
 
 
 const app = express();

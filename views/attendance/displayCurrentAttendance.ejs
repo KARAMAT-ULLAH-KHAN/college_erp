@@ -10,7 +10,8 @@
 	<link rel="stylesheet" href="../styles/currentAttendance.css" />
 	<link rel="stylesheet" href="../styles/header.css" />
 	<link rel="stylesheet" href="../styles/footer.css" />
-
+	<script src="../scripts/js/jspdf.min.js"></script>
+	<script src="../scripts/js/my1.js"></script>
 	<script src="../scripts/currentAttendanceUP.js"></script>
 	
 </head>
@@ -22,10 +23,10 @@
 			<div class="entry1">
 				<!-- code for archive record -->
 
-				<div id="archive" class="search" style="display='none'">
+				<div id="archive" class="search" style="display:'none'">
 					<div class="search1">
 						'
- 
+
 						<table class="archive-font">
 							<thead>
 								<tr class="archive-font">
@@ -106,51 +107,46 @@
 				<!--	code for current date attendance list	-->
 
 				<div class="fbar">
-					<%=classData[0].program_name %> - <%=classData[0].class_name%> - <%= classData[0].section_name%>
+					<%=locals.msg%>
 				</div>
 
 				<div class="search">
 					<div class="search1">
-						<form action="/attendance/saveAttendance" method="post">
-						<table>
-							<input type="submit" value="save" id="savebutton" name="save"><br>
-							<thead><tr>
-								<td>S.No</td>
-								<td>Roll_No</td>
-								<td>Student Name</td>
-								<td>Status</td>
-								<td>remarks</td>
-							</tr></thead>
-							<tbody>
+						<div id="discipline"><%=classData[0].program_name %> - <%=classData[0].class_name%> - <%= classData[0].section_name%></div>
+						<button onclick="printpdf()" id="pdfButton">Download as PDF</button>
+						<table id="myTable">
+							<thead>
+								<tr>
+									<td>S.No</td>
+									<td>Class.No</td>
+									<td>Student Name</td>
+									<td>Status</td>
+								</tr>
+							</thead>
+							
 							
 							<% classData.forEach((row, index)=> { %>
-								<tr>
-									<td>
-										<%=index+1%> - <%= row.enrollment_id %>
+								<tbody>
+									<tr>
+										<td>
+										<%=index+1%>
 									</td>
 									<td>
-										<%=row.inter_bs%> - <%=row.class_no%> - <%=row.year%>
+										<%=row.inter_bs%> - <%=row.class_no%> - <%=row.enroll_year%>
 									</td>
+									
 									<td>
 										<%=row.student_name%>
 									</td>
 									<td>
-										<button 
-											type="button" 
-											data-enrollment="<%= row.enrollment_id %>"   
-											onclick="toggleAttendance(this)"  
-											value="A">A
-										</button>
-										<input type="hidden" name="attendance[<%= row.enrollment_id %>]" value="A">
-										
-										</td>
-									<td></td>
+										<%= row.status %>
+									</td>
 									
 								</tr>
+								</tbody>
 								<%})%>
-							</tbody></table>
-							<input type="hidden" name="psfid" value="<%=psfid%>">
-							</form>	
+							</table>
+							
 					</div>
 				</div>
 

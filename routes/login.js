@@ -25,7 +25,7 @@ export default function Login(db,bcrypt){
           //this login with small i is passport thing
           if (err) {
             return next(err);
-          }
+          } 
           return res.redirect("/dashboard");
         });
       })(req, res, next);

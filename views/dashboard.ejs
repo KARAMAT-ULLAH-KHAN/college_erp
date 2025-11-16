@@ -1,90 +1,5 @@
 <!DOCTYPE html>
-<!-- <?php
-include 'connection.php';
-include 'address.php';
-SESSION_START();
 
-
-if(isset($_SESSION['usersession'])&&$_SESSION['acclvl']==0){
-
-}
-else{
-session_destroy();
-mysqli_close($conn);
-header("Location:./index.php");
-}
-if(isset($_POST['logout'])){
-session_destroy();
-mysqli_close($conn);
-header("Location:./index.php");
-}
-{
-	$check = mysqli_query($conn,"select * from roles");
-								while($display= mysqli_fetch_array($check))
-								{
-									if($display['role_name']=='current attendance'){
-										$current_attendance=$display['status'];
-									}
-									if($display['role_name']=='previous attendance'){
-										$previous_attendance=$display['status'];
-									}
-									if($display['role_name']=='mark leaves'){
-										$mark_leaves=$display['status'];
-									}
-									if($display['role_name']=='pre board marking'){
-										$pre_board_marking=$display['status'];
-									}
-									if($display['role_name']=='pre board result'){
-										$pre_board_result=$display['status'];
-									}
-									if($display['role_name']=='mid term marking'){
-										$mid_term_marking=$display['status'];
-									}
-									if($display['role_name']=='mid term result'){
-										$mid_term_result=$display['status'];
-									}
-									if($display['role_name']=='pre board result update'){
-										$pre_board_result_update=$display['status'];
-									}
-									if($display['role_name']=='mid term result update'){
-										$mid_term_result_update=$display['status'];
-									}
-									if($display['role_name']=='monthly attendance sheet'){
-										$monthly_attendance_sheet=$display['status'];
-									}
-									if($display['role_name']=='inter attendance'){
-										$inter_attendance=$display['status'];
-									}
-									if($display['role_name']=='bs attendance'){
-										$bs_attendance=$display['status'];
-									}
-									if($display['role_name']=='archive'){
-										$archive=$display['status'];
-									}
-									if($display['role_name']=='presentation marks'){
-										$presentation_marks=$display['status'];
-									}
-									if($display['role_name']=='presentation result'){
-										$presentation_result=$display['status'];
-									}
-									if($display['role_name']=='presentation result update'){
-										$presentation_result_update=$display['status'];
-									}
-									if($display['role_name']=='quiz marks'){
-										$quiz_marks=$display['status'];
-									}
-									if($display['role_name']=='quiz result'){
-										$quiz_result=$display['status'];
-									}
-									if($display['role_name']=='quiz result update'){
-										$quiz_result_update=$display['status'];
-									}
-									if($display['role_name']=='banner_message'){
-										$banner_message=$display['status'];
-									}
-								}
-}
-?> -->
 <html lang="en">
 
 <head>
@@ -112,7 +27,7 @@ header("Location:./index.php");
 </head>
 
 <body>
-	<%- include('header.ejs')%>
+	<%- include('./partials/header.ejs')%>
 
 		<div class="entry">
 			<div class="entry1">
@@ -121,7 +36,7 @@ header("Location:./index.php");
 				 <div id="warning" class="warning-message">
 					<%=warning%>
 				 </div>
-				<% } %>
+				<% } %> 
 				<div id="archive" class="search" style="display='none'">
 					<div class="search1">
 						'
@@ -205,7 +120,7 @@ header("Location:./index.php");
 					</div>
 				</div>
 
-				<!-- Code for Inter record  --> 
+				<!-- Code for Inter and BS record  --> 
 
 				<% psfData.forEach((row, index)=> { %>
 					<%if(row.psf_status==1 && row.duration==2){%>
@@ -259,18 +174,23 @@ header("Location:./index.php");
 										</button>
 									</div>
 									<input type="hidden" name="pid" value="<%= row.program_id %>" />
+									<input type="hidden" name="psfid" value="<%= row.psf_id %>" />
 								</form>
 							</div>
 						</div>
 						<%}%>
+
+
+
+
 					<%if(row.psf_status==1 && row.duration==4){%>
 						<div class="search psf<%=row.duration%>">
 									<div class="search1">
-										
+									<form action="" method="post">
 										<button name="course_file" value="" class="bt11" type="submit">
 											Print Course File
 										</button>
-										<button name="a_list" value="Click" class="bt11">
+										<button formaction="/attendance/currentAttendance" name="a_list" value="Click" class="bt11">
 											Today\'s Attendance : <%=date%><br />
 												<%=row.program_name.toUpperCase()%><br />
 													<%= row.class_name%><br />
@@ -389,14 +309,17 @@ header("Location:./index.php");
 												Weekly_Topics
 											</button>
 										</div>
+									<input type="hidden" name="pid" value="<%= row.program_id %>" />
+									<input type="hidden" name="psfid" value="<%= row.psf_id %>" />
+									</form>
 									</div>
 						</div>
-					<%}%>
+					<%}%> 
 				<%})%>
 			</div>
 		</div>
 
-		<%- include('footer.ejs')%>
+		<%- include('./partials/footer.ejs')%>
 			<script src="../scripts/dashboardScript.js">
 			</script>
 
