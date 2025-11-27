@@ -5,14 +5,15 @@ import env from "dotenv";
 import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy } from "passport-local";
+import session from "express-session";
 
 import Login from "./routes/login.js";
-import session from "express-session";
 import dashboard from "./routes/dashboard.js";
 import logout from "./routes/logout.js";
 import attendance from "./routes/currentAttendance.js";
 import registerRoute from "./routes/register.js";
 import forgotPassword from "./routes/forgotPassword.js";
+import monthlyAttendance from "./routes/monthyAttendance.js"
 
 
 const app = express();
@@ -51,7 +52,6 @@ app.use(passport.session());
 
 app.get("/",(req,res)=>{
     res.render("index.ejs");
-    console.log("inside /");
 });
 
 
@@ -60,6 +60,7 @@ app.use("/login",Login(db,bcrypt));
 app.use("/register",registerRoute(db,bcrypt));
 app.use("/dashboard",dashboard(db));
 app.use("/attendance",attendance(db));
+app.use("/monthlyAttendance",monthlyAttendance(db));
 app.use("/logout",logout());
 
 

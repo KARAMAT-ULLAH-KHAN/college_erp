@@ -46,7 +46,7 @@
 			doc.save('GDCM-SAMS - ' + title + '.pdf');
 		}
 
-
+ 
 function setExamValue(exam) {
   document.getElementById("exam").value = exam;
 }

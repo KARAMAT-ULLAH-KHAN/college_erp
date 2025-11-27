@@ -8,7 +8,7 @@ export default function attendance(db) {
   const month = String(d.getMonth() + 1).padStart(2, "0");
   const year = d.getFullYear();
   var date = `${day}-${month}-${year}`;
-  var pgdate = `${year}-${month}-${day}`;
+  var pgdate = `${year}-${month}-${day}`; 
 
   router.post("/currentAttendance", async (req, res) => {
     if (req.isAuthenticated()) {
@@ -35,8 +35,6 @@ export default function attendance(db) {
         [req.body.pid]
       ); 
       if(classRecord.rows.length>0){
-        console.log( "User ID:", req.user.faculty_id,  "- program_id ", req.body.pid );
-        console.log("Class record", classRecord.rows[0].program_name);
 
         res.render("./attendance/currentAttendance.ejs", {
           userData: req.user,
@@ -107,8 +105,6 @@ export default function attendance(db) {
                     `,
                     [psfid, pgdate]
                   );
-                    console.log("psf : ",psfid,"adate :",pgdate);
-                    console.log("current attendance: ",displayAttendance)
                   res.render("./attendance/displayCurrentAttendance",{
                       userData: req.user,
                       psfData: req.session.psfRecord,

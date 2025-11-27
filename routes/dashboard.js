@@ -43,8 +43,6 @@ export default function dashboard(db){
                                 );
             //we store this data in session because it will be used again in several areas
             req.session.psfRecord = psfRecord.rows; 
-
-            console.log("User ID:", req.user.faculty_id, "--Months: ",psfRecord.rows[0].months);
                                
             res.render("dashboard.ejs",{
                 userData: req.user,
@@ -52,7 +50,6 @@ export default function dashboard(db){
                 warning:  req.query.warning,
                 date: date
             });
-            console.log(req.session.psfRecord);
         }else{
             res.render("index.ejs",{message:"please login first",error:"error"});
         }

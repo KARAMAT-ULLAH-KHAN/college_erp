@@ -23,86 +23,7 @@
 			<div class="entry1">
 				<!-- code for archive record -->
 
-				<div id="archive" class="search" style="display:'none'">
-					<div class="search1">
-						'
-
-						<table class="archive-font">
-							<thead>
-								<tr class="archive-font">
-									<td>S.No</td>
-									<td>PSF_ID</td>
-									<td>INSTRUCTOR</td>
-									<td>PROGRAM</td>
-									<td>SECTION</td>
-									<td>YEAR</td>
-									<td>SUBJECT</td>
-									<td>MONTH</td>
-									<td>ACTION</td>
-								</tr>
-							</thead>
-							<tbody>
-								<% psfData.forEach((row, index)=> { %>
-									<% if (row.psf_status==0) { %>
-										<tr>
-											<td>
-												<%= index + 1 %>
-											</td>
-											<td>
-												<%= row.psf_id %>
-											</td>
-											<td>
-												<%= row.faculty_name.toUpperCase() %>
-											</td>
-											<td>
-												<%= row.program_name %>
-											</td>
-											<td>
-												<%= row.class_name %> - <%= row.section_name %>
-											</td>
-											<td>
-												<%= row.year %>
-											</td>
-											<td>
-												<%= row.subject_name %>
-											</td>
-											<td>
-												<select class="selectdate" name="month" id="monthDropdown">
-													<% if (row.months) { row.months.split(",").forEach(m=> {
-														let year = m.substring(0,4); let month = m.substring(5,7);
-														const monthNames = [
-														"Jan","Feb","Mar","April","May","June",
-														"July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
-														monthNames[parseInt(month)-1]; %>
-														<option value="<%= month %>-01">
-															<%= monthName %> - <%= year %>
-														</option>
-														<% }) } else { %>
-															<option value="">No Records</option>
-															<% } %>
-												</select>
-											</td>
-											<td>
-												<form method="POST" action="/printpdf">
-													<input type="hidden" name="psfid" value="<%= row.psf_id %>" />
-													<input type="hidden" name="pid" value="<%= row.program_id %>" />
-													<input type="hidden" name="sname" value="<%= row.subject_name %>" />
-													<input name="pname" type="hidden" value="<%= row.pf_name %>" />
-													<input name="class_name" type="hidden"
-														value="<%= row.class_name %>" />
-													<button class="bt1 custom" type="submit">
-														Attendance List
-													</button>
-												</form>
-											</td>
-										</tr>
-
-										<% } %>
-											<% }) %>
-							</tbody>
-						</table>
-					</div>
-				</div>
+		<%- include('../partials/archive.ejs')%>
 
 				<!--	code for current date attendance list	-->
 
@@ -124,7 +45,7 @@
 								</tr>
 							</thead>
 							
-							
+							 
 							<% classData.forEach((row, index)=> { %>
 								<tbody>
 									<tr>
