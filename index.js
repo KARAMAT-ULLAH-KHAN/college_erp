@@ -23,6 +23,9 @@ const psfRecord=0;
 env.config();
 //using middleware
 app.set("view engine", "ejs");
+
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -34,7 +37,7 @@ const db = new pg.Client({
                 port: process.env.PG_PORT,
         });
 db.connect();
-
+    
 app.use(
     session({
         secret:"its my secret",

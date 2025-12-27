@@ -54,17 +54,20 @@
 									</button>
 
 									<select class="selectdate" name="month" id="monthDropdown">
-										<% if (row.months) { row.months.split(",").forEach(m=> { let year
-											= m.substring(0,4); let month = m.substring(5,7); const monthNames
-											= [ "Jan","Feb","Mar","April","May","June",
-											"July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
-											monthNames[parseInt(month)-1]; %>
+										<% if (row.months) { 
+											row.months.split(",").forEach(m=> { 
+												let year = m.substring(0,4); 
+												let month = m.substring(5,7); 
+												const monthNames= [ "Jan","Feb","Mar","April","May","June", "July","Aug","Sept","Oct","Nov","Dec" ]; 
+												let monthName = monthNames[parseInt(month)-1]; %>
+
 											<option value="<%= year %>-<%= month %>-01">
 												<%= monthName %> - <%= year %>
 											</option>
-											<% }) } else { %>
+
+										<% }) } else { %>
 												<option value="">No Records</option>
-												<% } %>
+										<% } %>
 									</select>
 									<button formaction="/monthlyAttendance" name="all_list" value="" class="bt3" type="submit">
 										Full Attendence List
@@ -117,17 +120,21 @@
 										</button>
 
 										<select class="selectdate" name="month" id="monthDropdown">
-											<% if (row.months) { row.months.split(",").forEach(m=> { let year
-												= m.substring(0,4); let month = m.substring(5,7); const monthNames
-												= [ "Jan","Feb","Mar","April","May","June",
-												"July","Aug","Sept","Oct","Nov","Dec" ]; let monthName =
-												monthNames[parseInt(month)-1]; %>
+											<% if (row.months) { 
+												row.months.split(",").forEach(m=> { 
+													let year = m.substring(0,4); 
+													let month = m.substring(5,7); 
+													const monthNames = [ "Jan","Feb","Mar","April","May","June",
+																		"July","Aug","Sept","Oct","Nov","Dec" ]; 
+													let monthName = monthNames[parseInt(month)-1]; %>
+
 												<option value="<%= year %>-<%= month %>-01">
-												<%= monthName %> - <%= year %>
-											</option>
-												<% }) } else { %>
+													<%= monthName %> - <%= year %>
+												</option>
+												
+											<% }) } else { %>
 													<option value="">No Records</option>
-													<% } %>
+											<% } %>
 										</select>
 										<button formaction="/monthlyAttendance" name="all_list" value="" class="bt3" type="submit">
 											Full Attendence List

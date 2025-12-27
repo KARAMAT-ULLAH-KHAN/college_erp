@@ -40,3 +40,16 @@ document.addEventListener("click", function (event) {
 
 // 	}
 // });
+
+var highlightableCells = document.getElementsByClassName('redA');
+console.log(highlightableCells);
+		// Loop through each cell and check the content
+		for (var j = 0; j < highlightableCells.length; j++) {
+			var cell = highlightableCells[j];
+			if (cell.textContent.trim() === 'A') {
+				cell.classList.add('redit');
+			}
+      if (cell.textContent.trim() === 'L') {
+				cell.classList.add('greenit');
+			}
+		}

@@ -291,5 +291,17 @@ button {
         .search1{
             font-size: 0.6rem;
         }
+        .subject-head{
+            font-size: 0.6rem;
+        }
      
+    }
+    .redit {
+			color: red;
+		}
+    .greenit{
+        color: green;
+    }
+    .subject-head{
+        color: gold;
     }

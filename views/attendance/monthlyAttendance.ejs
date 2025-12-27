@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="../styles/monthlyAttendance.css" />
 	<link rel="stylesheet" href="../styles/header.css" />
 	<link rel="stylesheet" href="../styles/footer.css" />
+	<script src="../scripts/js/jspdf.min.js"></script>
+	<script src="../scripts/js/my1.js"></script>
 
 	<script src="../scripts/currentAttendanceUP.js"></script>
 	
@@ -26,14 +28,14 @@
 
 				<!--	code for current date attendance list	-->
 
-				<div class="fbar">
-					</div>
+				<div id="month" class="subject-head"><%= locals.forMonth %>  </div>
+				<div id="discipline" class="subject-head"><%= locals.pname %> -- <%= locals.cname %> -- <%= locals.sname %>  </div>
 
 				<div class="search">
 					<div class="search1">
-						
-						<table>
-							<input type="submit" value="save" id="savebutton" name="save"><br>
+						<button onclick="printpdf()" id="pdfButton">Download as PDF</button><br>
+						<table id="myTable">
+							
 							<thead><tr>
 								<td></td>
 								<% days.forEach(row=> { %>
@@ -42,18 +44,27 @@
 									</td> 
                                     
                                 <%})%>
+								<th>Total Classes</th>
+								<th>Perc%</th>
 							</tr></thead>
 							<tbody>
+							
 							<% rowsData.forEach(row=> { %>
                                     <tr>
 										<td>
 											<%= row.class_no %>
 										</td> 
 										<% rowDates.forEach(d=> { %>
-											<td>
-													<%= row[d]%>
+											<td class="redA">
+													<%= row[d]%>  <!-- d is "0000-00-00", rowsData["0000-00-00"]=P or A or L-->
 											</td>
 										<%})%>
+										<td>
+											P=<%= row.totalPresent %>, A=<%= row.totalAbsent %>, L=<%= row.totalLeave %>, T=<%= row.total %>
+										</td>
+										<td>
+											<%= row.percentage%> %
+										</td> 
 									</tr>
                                     
                                 <%})%>
@@ -67,6 +78,8 @@
 		<%- include('../partials/footer.ejs')%>
 			<script src="../scripts/dashboardScript.js">
 			</script>
+
+			
 
 </body>
 

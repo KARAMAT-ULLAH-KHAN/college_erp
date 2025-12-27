@@ -105,6 +105,7 @@ export default function attendance(db) {
                     `,
                     [psfid, pgdate]
                   );
+                   
                   res.render("./attendance/displayCurrentAttendance",{
                       userData: req.user,
                       psfData: req.session.psfRecord,
