@@ -8,6 +8,7 @@
 
 	<title>Program Record Entry</title>
 	<link rel="stylesheet" href="../styles/dashboard.css" />
+	<link rel="stylesheet" href="../styles/tableDesign.css" />
 	<link rel="stylesheet" href="../styles/header.css" />
 	<link rel="stylesheet" href="../styles/footer.css" />
 	<script>
@@ -70,14 +71,14 @@
 										<% } %>
 									</select>
 									<button formaction="/monthlyAttendance" name="all_list" value="" class="bt3" type="submit">
-										Full Attendence List
+										Monthly Attendence List
 									</button>
 									<hr />
-									<button name="inprevious" value="" class="bt1" type="submit">
+									<button formaction="/markPreviousAttendance" name="inprevious" value="" class="bt1" type="submit">
 										Mark Previous Attendance
 									</button>
-									<button name="markleave" value="" class="bt1" type="submit">
-										Update Attendance (Individual)
+									<button formaction="updateAttendance" name="markleave" value="" class="bt1" type="submit">
+										Update Attendance
 									</button>
 									<div class="mid-term">
 										<label class="heading">Pre-Board</label>
@@ -137,14 +138,14 @@
 											<% } %>
 										</select>
 										<button formaction="/monthlyAttendance" name="all_list" value="" class="bt3" type="submit">
-											Full Attendence List
+											Monthly Attendence List
 										</button>
 										<hr />
-										<button name="inprevious" value="" class="bt11" type="submit">
+										<button formaction="/markPreviousAttendance" name="inprevious" value="" class="bt11" type="submit">
 											Mark Previous Attendance
 										</button>
-										<button name="markleave" value="" class="bt11" type="submit">
-											Update Attendance (Individual)
+										<button formaction="update_attendance" name="markleave" value="" class="bt11" type="submit">
+											Update Attendance
 										</button>
 										<div class="mid-term">
 											<label class="heading">Mid-Term</label>

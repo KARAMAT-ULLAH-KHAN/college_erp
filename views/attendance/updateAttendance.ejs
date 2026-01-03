@@ -33,43 +33,52 @@
 
 				<div class="search">
 					<div class="search1">
-						<form action="/attendance/saveAttendance" method="post">
-						<table>
+						<form action="/updateAttendance/update" method="post">
+						<table class="attendance-table">
 							<input type="submit" value="save" id="savebutton" name="save"><br>
 							<thead><tr>
-								<td>S.No</td>
-								<td>Roll_No</td>
-								<td>Student Name</td>
-								<td>Status</td>
-								<td>remarks</td>
+								<th>Select Roll_No</th>
+								<th>Select Date</th>
+								<th>Action</th>
+								<th>Update</th>
 							</tr></thead>
 							<tbody>
 							
-							<% classData.forEach((row, index)=> { %>
+							
 								<tr>
-									<td>
-										<%=index+1%> - <%= row.enrollment_id %>
-									</td>
 									<td> 
-										<%=row.inter_bs%> - <%=row.class_no%> - <%=row.year%>
+										<select class="classno" name="enroll_no" id="" >
+											<% classData.forEach((row, index)=> { %>
+												<option value="<%= row.enrollment_id%>">
+													<%=row.inter_bs%> - <%=row.class_no%> - <%=row.year%>
+												</option>
+											<%})%>
+										</select>
 									</td>
 									<td>
-										<%=row.student_name%>
+										<input class="selectdate" id="selectdate" type="date" value="" name="selectdate" >
 									</td>
 									<td>
-										<button 
-											type="button" 
-											data-enrollment="<%= row.enrollment_id %>"   
-											onclick="toggleAttendance(this)"  
-											value="A">A
+										<select class="classno" name="status" id="" >
+											<option value="L">
+												Leave
+											</option>
+											<option value="A">
+												Absent
+											</option>
+											<option value="P">
+												Present
+											</option>
+										</select>
+									</td>
+									<td>
+										<button class="btnGreen" name="update">
+											UPDATE
 										</button>
-										<input type="hidden" name="attendance[<%= row.enrollment_id %>]" value="A">
-										
-										</td>
-									<td></td>
+									</td>
 									
 								</tr>
-								<%})%>
+							
 							</tbody></table>
 							<input type="hidden" name="psfid" value="<%=psfid%>">
 							</form>	

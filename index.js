@@ -14,6 +14,8 @@ import attendance from "./routes/currentAttendance.js";
 import registerRoute from "./routes/register.js";
 import forgotPassword from "./routes/forgotPassword.js";
 import monthlyAttendance from "./routes/monthyAttendance.js"
+import markPreviousAttendance from "./routes/markPreviousAttendance.js"
+import updateAttendance from "./routes/updateAttendance.js";
 
 
 const app = express();
@@ -64,6 +66,8 @@ app.use("/register",registerRoute(db,bcrypt));
 app.use("/dashboard",dashboard(db));
 app.use("/attendance",attendance(db));
 app.use("/monthlyAttendance",monthlyAttendance(db));
+app.use("/markPreviousAttendance",markPreviousAttendance(db));
+app.use("/updateAttendance",updateAttendance(db));
 app.use("/logout",logout());
 
 

@@ -27,52 +27,38 @@
 
 				<!--	code for current date attendance list	-->
 
-				<div class="fbar">
-					<%=classData[0].program_name %> - <%=classData[0].class_name%> - <%= classData[0].section_name%>
-				</div>
+				
 
 				<div class="search">
 					<div class="search1">
-						<form action="/attendance/saveAttendance" method="post">
-						<table>
-							<input type="submit" value="save" id="savebutton" name="save"><br>
+						<table class="attendance-table">
 							<thead><tr>
-								<td>S.No</td>
-								<td>Roll_No</td>
-								<td>Student Name</td>
-								<td>Status</td>
-								<td>remarks</td>
+								<th>Roll_No</th>
+								<th>Student name</th>
+								<th>Date</th>
+								<th>Remarks</th>
 							</tr></thead>
 							<tbody>
 							
-							<% classData.forEach((row, index)=> { %>
+							
 								<tr>
-									<td>
-										<%=index+1%> - <%= row.enrollment_id %>
+									<td> 
+										<%= updatedData.class_no %>
 									</td>
 									<td> 
-										<%=row.inter_bs%> - <%=row.class_no%> - <%=row.year%>
+										<%= updatedData.student_name %>
 									</td>
 									<td>
-										<%=row.student_name%>
+										<%= updateDate %>
 									</td>
-									<td>
-										<button 
-											type="button" 
-											data-enrollment="<%= row.enrollment_id %>"   
-											onclick="toggleAttendance(this)"  
-											value="A">A
-										</button>
-										<input type="hidden" name="attendance[<%= row.enrollment_id %>]" value="A">
-										
-										</td>
-									<td></td>
+									<td class="status">
+										<%= updatedData.status %>
+									</td>
 									
 								</tr>
-								<%})%>
+							
 							</tbody></table>
 							<input type="hidden" name="psfid" value="<%=psfid%>">
-							</form>	
 					</div>
 				</div>
 

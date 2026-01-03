@@ -20,7 +20,7 @@ export default function monthlyAttendance(db) {
       const postPsfid = req.body.psfid;
       const activeFlag = req.body.activeFlag == 0 ? "false" : "true";
 
-      const startDate = req.body.month;
+      const startDate = req.body.month; //yyyy-mm-01
       if (startDate) {
         const [sYear, sMonth, sDay] = startDate.split("-"); // splitting date to seperate variables
         const endDate = `${sYear}-${sMonth}-${lastDay(sYear, sMonth)}`; // geting last date of each month from latDay()

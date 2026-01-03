@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="../styles/currentAttendance.css" />
 	<link rel="stylesheet" href="../styles/header.css" />
 	<link rel="stylesheet" href="../styles/footer.css" />
+	<link rel="stylesheet" href="../styles/tableDesign.css" />
 	<script src="../scripts/js/jspdf.min.js"></script>
 	<script src="../scripts/js/my1.js"></script>
 	<script src="../scripts/currentAttendanceUP.js"></script>
@@ -30,7 +31,7 @@
 				<div class="fbar">
 					<%=locals.msg%>
 				</div>
-				<div id="month" class="subject-head"><%= locals.date %>  </div>
+				<div id="month" class="subject-head">Marking Date<%= locals.markingDate %>  </div>
 				<div class="search">
 					<div class="search1">
 						<div id="discipline"><%=classData[0].program_name %> - <%=classData[0].class_name%> - <%= classData[0].section_name%></div>

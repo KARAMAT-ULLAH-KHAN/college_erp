@@ -39,23 +39,6 @@ body {
 	align-items: center;
 	overflow-x: auto;
 }
-.archive-font{
-            font-size:0.6rem;
-			width:100%;
-            color: #000;
-            font-family: 'Times New Roman', Times, serif;
-			text-align: center;
-        }
-tr,td{
-			padding: 5px;
-            text-align: center;
-            border-bottom: 1px solid black;
-
-}
-tr:hover {
-            background-color: gray;
-			color:white;
-        }
 .right1:last-child{
 	
 	background-color: SlateBlue;
@@ -288,4 +271,78 @@ color: white;
         td{
             font-size:0.5rem;
         }
+ 
+		.attendance-table thead th,
+		.attendance-table tbody td {
+			padding: 6px;
+		}
+     
     }
+
+
+	/* ===========================
+   Attendance Table Styling
+   =========================== */
+
+.attendance-table {
+    width: 85%;
+    margin: 15px auto;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    font-size: 0.7rem;
+}
+
+/* Header */
+.attendance-table thead {
+    background: linear-gradient(135deg, #2e7d32, #66bb6a);
+    color: white;
+}
+
+.attendance-table thead th {
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-right: 1px solid rgba(255,255,255,0.3);
+}
+
+.attendance-table thead th:last-child {
+    border-right: none;
+}
+.attendance-table thead tr:hover {
+    background-color: #1d9dd8;
+    color: white;
+    transition: 0.3s ease;
+}
+
+/* Body cells */
+.attendance-table tbody td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+}
+
+/* Zebra striping */
+.attendance-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect */
+.attendance-table tbody tr:hover {
+    background-color: #464444;
+    transition: 0.3s ease;
+}
+
+.attendance-table tbody tr:hover td {
+    color: white;
+}
+
+
+
+.attendance-table td.status {
+    font-weight: bold;
+    text-transform: capitalize;
+}
