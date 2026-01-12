@@ -31,10 +31,15 @@
 				<div class="fbar">
 					<%=locals.msg%>
 				</div>
-				<div id="month" class="subject-head">Marking Date : <%= locals.date %>  </div>
+				<div id="month" class="subject-head">Exam : <%= examData[0].exam_name %>  </div>
 				<div class="search">
 					<div class="search1">
-						<div id="discipline"><%=classData[0].program_name %> - <%=classData[0].class_name%> - <%= classData[0].section_name%></div>
+						<div id="discipline">
+							<%=examData[0].program_name %> - 
+							<%=examData[0].class_name%> - 
+							<%= examData[0].section_name%> <br>
+							<%= examData[0].exam_name %>
+						</div>
 						<button onclick="printpdf()" id="pdfButton">Download as PDF</button>
 						<table id="myTable">
 							<thead>
@@ -42,12 +47,13 @@
 									<td>S.No</td>
 									<td>Class.No</td>
 									<td>Student Name</td>
-									<td>Status</td>
+									<td>Obtained Marks</td>
+									<td>Total Marks</td>
 								</tr>
 							</thead>
 							
 							 
-							<% classData.forEach((row, index)=> { %>
+							<% examData.forEach((row, index)=> { %>
 								<tbody>
 									<tr>
 										<td>
@@ -61,7 +67,10 @@
 										<%=row.student_name%>
 									</td>
 									<td>
-										<%= row.status %>
+										<%= row.marks %>
+									</td>
+									<td>
+										<%= row.total_marks %>
 									</td>
 									
 								</tr>

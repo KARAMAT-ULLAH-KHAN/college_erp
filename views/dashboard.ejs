@@ -21,7 +21,7 @@
 					warning.style.opacity = "50%"; // fade out
 					setTimeout(() => {
 						warning.style.display = "none"; // remove from layout after fade
-					}, 50); // match fade duration
+					}, 100); // match fade duration
 				}
 			}, 2000);
 	</script>
@@ -77,26 +77,27 @@
 									<button formaction="/markPreviousAttendance" name="inprevious" value="" class="bt1" type="submit">
 										Mark Previous Attendance
 									</button>
-									<button formaction="updateAttendance" name="markleave" value="" class="bt1" type="submit">
+									<button formaction="/updateAttendance" name="markleave" value="" class="bt1" type="submit">
 										Update Attendance
 									</button>
 									<div class="mid-term">
-										<label class="heading">Pre-Board</label>
+										<label class="heading">EXAM</label>
 										<hr />
-										<button name="marking" value="pre_board_marking" class="bt1" type="submit"
+										<button name="marking" formaction="/examMarksEntry"  class="bt1" type="submit"
 											style="margin-right:10px">
 											Marking
 										</button>
-										<button name="result" value="pre_board_result" class="bt1" type="submit"
+										<button name="result" formaction="/displayExamMarksEntry"  class="bt1" type="submit"
 											style="margin-right: 10px">
 											View Result
 										</button>
-										<button name="result_update" value="" class="bt1" type="submit"
+										<button name="result_update"  class="bt1" type="submit"
 											style="margin-right: 10px">
 											Update
 										</button>
 									</div>
 									<input type="hidden" name="pid" value="<%= row.program_id %>" />
+									<input type="hidden" name="exam" value="4" />
 									<input type="hidden" name="psfid" value="<%= row.psf_id %>" />
 								</form>
 							</div>
@@ -148,74 +149,21 @@
 											Update Attendance
 										</button>
 										<div class="mid-term">
-											<label class="heading">Mid-Term</label>
-											<hr />
-											<button name="marking" value="mid_term_marking" class="bt11" type="submit"
-												onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px">
-												Marking
-											</button>
-											<button name="result" value="mid_term_result" class="bt11" type="submit"
-												onclick="setExamValue(\'MID-TERM\')" style="margin-right: 10px">
-												View Result
-											</button>
-											<button name="result_update" value="mid_term_result_update" class="bt11"
-												onclick="setExamValue(\'MID-TERM\')" type="submit"
-												style="margin-right: 10px">
-												Update
-											</button>
-											
-										</div>
-										<div class="presentation">
-											<label class="heading">Presentation</label>
-											<hr />
-											<button name="marking" value="Presentation_Marks" class="bt11" type="submit"
-												onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px">
-												Marking
-											</button>
-											<button name="result" value="Presentation_Result" class="bt11" type="submit"
-												onclick="setExamValue(\'PRESENTATION\')" style="margin-right: 10px">
-												View Result
-											</button>
-											<button name="result_update" value="Presentation_Result_Update" class="bt11"
-												type="submit" onclick="setExamValue(\'PRESENTATION\')"
-												style="margin-right: 10px">
-												Update
-											</button>
-										</div>
-										<div class="quiz">
-											<label class="heading">Quiz</label>
-											<hr />
-											<button name="marking" value="Quiz_Marks" class="bt11" type="submit"
-												onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px">
-												Marking
-											</button>
-											<button name="result" value="Quiz_Result" class="bt11" type="submit"
-												onclick="setExamValue(\'QUIZ\')" style="margin-right: 10px">
-												View Result
-											</button>
-											<button name="result_update" value="Quiz_Result_Update" class="bt11"
-												type="submit" onclick="setExamValue(\'QUIZ\')"
-												style="margin-right: 10px">
-												Update
-											</button>
-										</div>
-										<div class="assignment">
-											<label class="heading">Assignment</label>
-											<hr />
-											<button name="marking" value="Assignment_Marks" class="bt11" type="submit"
-												onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px">
-												Marking
-											</button>
-											<button name="result" value="Assignment_Result" class="bt11" type="submit"
-												onclick="setExamValue(\'ASSIGNMENT\')" style="margin-right: 10px">
-												View Result
-											</button>
-											<button name="result_update" value="Assignment_Result_Update" class="bt11"
-												type="submit" onclick="setExamValue(\'ASSIGNMENT\')"
-												style="margin-right: 10px">
-												Update
-											</button>
-										</div>
+										<label class="heading">EXAM</label>
+										<hr />
+										<button name="marking" formaction="/examMarksEntry" class="bt11" type="submit"
+											style="margin-right:10px">
+											Marking
+										</button>
+										<button name="result" formaction="/displayExamMarksEntry"  class="bt1" type="submit"
+											style="margin-right: 10px">
+											View Result
+										</button>
+										<button name="result_update" value="" class="bt11" type="submit"
+											style="margin-right: 10px">
+											Update
+										</button>
+									</div>
 										<div class="topics">
 											<label class="heading">Course File Topics</label>
 											<hr />

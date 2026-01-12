@@ -53,3 +53,34 @@ console.log(highlightableCells);
 				cell.classList.add('greenit');
 			}
 		}
+  document.addEventListener('DOMContentLoaded', function() {
+				var textboxes = document.querySelectorAll('input[type="text"]');
+				
+				textboxes.forEach(function(textbox, index) {
+					textbox.addEventListener('keypress', function(event) {
+						if (event.key === "Enter") {
+							var nextIndex = (index + 1) % textboxes.length;
+							textboxes[nextIndex].focus();
+							textboxes.select();
+						}
+					});
+				});
+			});
+      document.addEventListener('DOMContentLoaded', function() {
+				var updateForm = document.getElementById('updateForm');
+				updateForm.addEventListener('keypress', function(event) {
+					if (event.key === "Enter") {
+						event.preventDefault(); // Prevent form submission
+					}
+				});
+			});
+
+    function selectText(textbox) {
+				textbox.select();
+			}
+	document.addEventListener('DOMContentLoaded', function() {
+    const totalMarksElement = document.getElementById('totalMarks'); 
+    if (totalMarksElement) {
+        totalMarksElement.focus();
+    }
+});

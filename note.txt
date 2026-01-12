@@ -449,5 +449,28 @@ Day 12
     5.  change the primary key type to numeric
     6.  now create relationships using FOREIGN KEY
 
-
-
+Day 17
+    1.  rename the buttons from pre board to exam
+    2.  add formaction="/examMarksEntry"
+    3.  create middleware for /examMarksEntry
+    4.  create file by copying current attendance.js file and rename it
+    5.  import route for middle examMarksEntry.
+    6.  change export function name to examMarksEntry
+        a.  make default route for Post method
+    7.  create render route examMarksEntry.ejs
+    8.  create examMarksEntry.ejs file by copying currentAttendance.ejs
+    9.  check the route by login
+    10. now make changes in examMarksEntry.ejs file 
+        a.  add input for total marks and selecting exam type.
+        b.  add some css
+        c.  copy select option codefor exam list from updateAttendance.ejs file
+    11. create table by name exam (exam_id, exam_name,exam_entry_date)
+        a.  make entries (PRE BOARD, MID TERM, ASSIGNMENT, QUIZ, PRESENTATION)
+    12. design css of examMarksEntry.ejs
+    13. add formaction in save button
+    14. now create array of input marks for form body data
+    15. create table for entry of exam marks
+    15. check exam data already exist or not
+    16. Now display it on page. 
+    17. now enable route for view result.
+    18. end

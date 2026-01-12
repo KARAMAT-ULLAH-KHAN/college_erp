@@ -275,15 +275,103 @@ button {
         color: #333;
         cursor: pointer;
     }
-    @media(max-width:400px){
+    .requiredData{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .marksInput{
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+        padding: 3px;
+        text-align: center;
+        font-size: 0.8rem;
+        background-color: rgb(207, 193, 63);
+        border: 1px solid gold;
+    }
+    .numberInput{
+        width: 10%;
+        height: 30px;
+        margin: 10px;
+        padding: 3px;
+        font-size: 0.8rem;
+        background-color: rgb(174, 219, 217);
+        border: 1px solid gold;
+            text-align: center;
+    }
+    .numberInput::-webkit-outer-spin-button,
+    .numberInput::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .selectOption{
+        width: 10%;
+        height: 40px;
+        margin: 10px;
+        padding: 3px;
+        text-align: center;
+        font-size: 0.8rem;
+        background-color: #1d9dd8;
+        border: 1px solid gold;
+    }
+    #savebutton{
+        width: 10%;
+        height: 40px;
+        padding: 3px;
+        text-align: center;
+        font-size: 0.8rem;
+        background-color: #095e0d;
+        color: white;
+        border: 1px solid gold;
+        border-radius: 5px;
+    }
+    #savebutton:hover{
+        width: 12%;
+        height: 42px;
+        padding: 3px;
+        text-align: center;
+        font-size: 0.8rem;
+        background-color: #376de2;
+        color: white;
+        border: 1px solid gold;
+        border-radius: 5px;
+    }
+    @media(max-width:500px){
         .bt1,.bt11{
             font-size:0.5rem;
         }
         td{
-            font-size:0.5rem;
+            font-size:0.6rem;
         }
         .search1{
             font-size: 0.6rem;
         }
-     
+        .requiredData{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .numberInput{
+            width: 38%;
+            height: 30px;
+            margin: 0px;
+            padding: 3px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .selectOption{
+            width: 40%;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+        #savebutton{
+        width: 40%;
+        
+    } #savebutton:hover{
+        width: 42%;
+        height: 42px;
+    }
     }

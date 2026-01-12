@@ -35,7 +35,6 @@
 					<div class="search1">
 						<form action="/updateAttendance/update" method="post">
 						<table class="attendance-table">
-							<input type="submit" value="save" id="savebutton" name="save"><br>
 							<thead><tr>
 								<th>Select Roll_No</th>
 								<th>Select Date</th>
@@ -47,7 +46,7 @@
 							
 								<tr>
 									<td> 
-										<select class="classno" name="enroll_no" id="" >
+										<select class="classno" name="enroll_no" id="" placeholder="select date" >
 											<% classData.forEach((row, index)=> { %>
 												<option value="<%= row.enrollment_id%>">
 													<%=row.inter_bs%> - <%=row.class_no%> - <%=row.year%>
@@ -56,7 +55,7 @@
 										</select>
 									</td>
 									<td>
-										<input class="selectdate" id="selectdate" type="date" value="" name="selectdate" >
+										<input class="selectdate" id="selectdate" placeholder="select date" type="date" value="" name="selectdate" >
 									</td>
 									<td>
 										<select class="classno" name="status" id="" >

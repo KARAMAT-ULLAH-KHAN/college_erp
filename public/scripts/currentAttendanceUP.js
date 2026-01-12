@@ -59,7 +59,7 @@
 				// Add text at the top of the page
 				doc.text(cTitle, 100, 5); // Adjust the position (10, 10) as per your requirement
 				// doc.text("Instructor: " + fnameValue, 50, 10); // Adjust the position (10, 10) as per your requirement
-				doc.text("Attendance for: " + month, 250, 10); // Adjust the position (10, 10) as per your requirement
+				doc.text(month, 250, 10); // Adjust the position (10, 10) as per your requirement
 				doc.text("Discipline: " + title, 15, 10); // Adjust the position (10, 10) as per your requirement
 				doc.text("Print "+dateValue, 15, 210); // Adjust the position (10, 10) as per your requirement
 				doc.text("Page  " + i + " of " + totalPages, 280, 210); // Adjust the position (10, 10) as per your requirement

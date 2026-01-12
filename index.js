@@ -16,6 +16,8 @@ import forgotPassword from "./routes/forgotPassword.js";
 import monthlyAttendance from "./routes/monthyAttendance.js"
 import markPreviousAttendance from "./routes/markPreviousAttendance.js"
 import updateAttendance from "./routes/updateAttendance.js";
+import examMarksEntry from "./routes/examMarksEntry.js";
+import displayExamMarksEntry from "./routes/displayExamMarksEntry.js"
 
 
 const app = express();
@@ -68,6 +70,8 @@ app.use("/attendance",attendance(db));
 app.use("/monthlyAttendance",monthlyAttendance(db));
 app.use("/markPreviousAttendance",markPreviousAttendance(db));
 app.use("/updateAttendance",updateAttendance(db));
+app.use("/examMarksEntry",examMarksEntry(db));
+app.use("/displayExamMarksEntry",displayExamMarksEntry(db));
 app.use("/logout",logout());
 
 
