@@ -23,6 +23,7 @@ export default function examMarksEntry(db) {
                                 p.program_name,
                                 c.class_name,
                                 sec.section_name,
+                                pcs.duration,
                                 e.enrollment_id 
                                 FROM enrollment e
                                 JOIN student s ON e.student_id = s.student_id  
@@ -37,7 +38,7 @@ export default function examMarksEntry(db) {
       const examList  = await db.query(`
         select * from exam
         `);
-      if(classRecord.rows.length>0){
+      if(classRecord.rows.length>0){ 
 
         res.render("./exam/examMarksEntry.ejs", {
           userData: req.user,
@@ -62,7 +63,8 @@ export default function examMarksEntry(db) {
 
   router.post("/saveMarks", async (req, res) => {
     if (req.isAuthenticated()) {
-          const { exam,totalmaks,marks, psfid } = req.body;
+          const { exam,totalmarks,marks, psfid } = req.body;
+          console.log({exam,totalmarks,marks, psfid});
           const examList  = await db.query(`select * from exam WHERE exam_id=$1`,[exam]);
           const checkExamData = await db.query(
             `select * from marks where psf_id=$1 AND exam_id=$2`,[psfid,exam]
@@ -77,7 +79,7 @@ export default function examMarksEntry(db) {
                 for (const enrollmentid in marks) {
                           const marksData = marks[enrollmentid];
                           console.log(`Marks ${enrollmentid}: ${marksData}`);
-                          finalmarks.push(`(${enrollmentid},${psfid},'${exam}','${marksData}','${date}','${totalmaks}')`
+                          finalmarks.push(`(${enrollmentid},${psfid},'${exam}','${marksData}','${pgdate}','${totalmarks}')`
                   );
                 }
           try {
@@ -86,42 +88,13 @@ export default function examMarksEntry(db) {
                             VALUES ${finalmarks.join(",")}
                             `);
                 if (insertExamMarks) {
-                  const displayExamMarks = await db.query(
-                    `
-                        SELECT marks.*,
-                        exam.*,
-                        s.class_no,
-                        s.student_name,
-                        s.inter_bs,
-                        e.enroll_year,
-                        p.program_name,
-                        c.class_name,
-                        sec.section_name
-                         FROM marks 
-                        Join enrollment e on marks.enrollment_id=e.enrollment_id
-                        join exam on marks.exam_id=exam.exam_id
-                        join student s on e.student_id=s.student_id
-                        INNER JOIN program_class_section pcs ON e.program_id = pcs.program_id
-                        INNER JOIN program p ON pcs.p_id = p.p_id
-                        INNER JOIN class c ON pcs.class_id = c.class_id
-                        INNER JOIN section sec ON pcs.section_id = sec.section_id
-                        WHERE marks.psf_id=$1 AND marks.exam_id=$2 
-                        ORDER BY s.class_no
-                    `,
-                    [psfid,exam]
-                  );
+                    const msg="Marks entry Finalized";
+                    res.redirect(`/dashboard?warning=${msg}`);
                    
-                  res.render("./exam/displayExamMarks",{
-                      userData: req.user,
-                      psfData: req.session.psfRecord,
-                      examData: displayExamMarks.rows,
-                      psfid:  psfid,
-                      msg:  "Marks entry Finalized",
-                      date: date,
-                  });
                 }
           } catch (error) {
              const msg=error;
+             console.log(error);
                 res.redirect(`/dashboard?warning=${msg}`);
      
           }

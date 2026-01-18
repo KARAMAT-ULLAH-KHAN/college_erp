@@ -10,7 +10,7 @@ export default function attendance(db) {
   var date = `${day}-${month}-${year}`;
   var pgdate = `${year}-${month}-${day}`; 
 
-  router.post("/currentAttendance", async (req, res) => {
+  router.post("/", async (req, res) => {
     if (req.isAuthenticated()) {
       const classRecord = await db.query(
         `select 

@@ -10,14 +10,14 @@ import session from "express-session";
 import Login from "./routes/login.js";
 import dashboard from "./routes/dashboard.js";
 import logout from "./routes/logout.js";
-import attendance from "./routes/currentAttendance.js";
+import attendance from "./routes/attendance/currentAttendance.js";
 import registerRoute from "./routes/register.js";
 import forgotPassword from "./routes/forgotPassword.js";
-import monthlyAttendance from "./routes/monthyAttendance.js"
-import markPreviousAttendance from "./routes/markPreviousAttendance.js"
-import updateAttendance from "./routes/updateAttendance.js";
-import examMarksEntry from "./routes/examMarksEntry.js";
-import displayExamMarksEntry from "./routes/displayExamMarksEntry.js"
+import monthlyAttendance from "./routes/attendance/monthyAttendance.js"
+import markPreviousAttendance from "./routes/attendance/markPreviousAttendance.js"
+import updateAttendance from "./routes/attendance/updateAttendance.js";
+import examMarksEntry from "./routes/exam/examMarksEntry.js";
+import displayExamMarks from "./routes/exam/displayExamMarks.js";
 
 
 const app = express();
@@ -27,8 +27,6 @@ const psfRecord=0;
 env.config();
 //using middleware
 app.set("view engine", "ejs");
-
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -56,28 +54,25 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.get("/",(req,res)=>{
     res.render("index.ejs");
 });
-
 
 app.use("/forgot-password",forgotPassword(db,bcrypt));
 app.use("/login",Login(db,bcrypt));
 app.use("/register",registerRoute(db,bcrypt));
 app.use("/dashboard",dashboard(db));
+//for Attendance
 app.use("/attendance",attendance(db));
 app.use("/monthlyAttendance",monthlyAttendance(db));
 app.use("/markPreviousAttendance",markPreviousAttendance(db));
 app.use("/updateAttendance",updateAttendance(db));
+//for Exam marking
 app.use("/examMarksEntry",examMarksEntry(db));
-app.use("/displayExamMarksEntry",displayExamMarksEntry(db));
+app.use("/displayExamMarks",displayExamMarks(db));
+
+
 app.use("/logout",logout());
-
-
-
-
-
 
 app.get("/debug-session", (req, res) => {
   res.json(req.session);

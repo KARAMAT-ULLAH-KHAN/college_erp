@@ -471,6 +471,7 @@ Day 17
     14. now create array of input marks for form body data
     15. create table for entry of exam marks
     15. check exam data already exist or not
+        for test data, keep value 3 e.g.
     16. Now display it on page. 
     17. now enable route for view result.
     18. end

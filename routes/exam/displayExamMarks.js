@@ -2,15 +2,38 @@ import express from "express";
 
 const router = express.Router();
 
-export default function displayExamMarksEntry(db) {
+export default function displayExamMarks(db) {
   const d = new Date();
   const day = String(d.getDate()).padStart(2, "0");
   const month = String(d.getMonth() + 1).padStart(2, "0");
   const year = d.getFullYear();
   var date = `${day}-${month}-${year}`;
   var pgdate = `${year}-${month}-${day}`; 
-
+ 
    router.post("/", async (req, res) => {
+    if (req.isAuthenticated()) {
+                  const examList  = await db.query(`
+                  select * from exam
+                  `);         
+                  res.render("./exam/selectExam",{
+                      userData: req.user,
+                      psfData: req.session.psfRecord,
+                      examData: examList.rows,
+                      psfid:  req.body.psfid,
+                      date: date,
+                  });
+         
+           
+          
+    } else {
+          res.render("index.ejs", {
+            message: "please login first",
+            error: "error",
+          });
+    }
+  });
+
+    router.post("/display", async (req, res) => {
     if (req.isAuthenticated()) {
           const { exam, psfid } = req.body;
           const examList  = await db.query(`select * from exam WHERE exam_id=$1`,[exam]);

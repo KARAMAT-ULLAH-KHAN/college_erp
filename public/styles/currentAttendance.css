@@ -4,6 +4,7 @@ body {
 	justify-content: center;
     font-size:16px;
     margin:0px;
+    margin-bottom: 40px;
 	}
 		
 .login-container {
@@ -306,16 +307,40 @@ button {
         -webkit-appearance: none;
         margin: 0;
     }
-    .selectOption{
-        width: 10%;
-        height: 40px;
-        margin: 10px;
-        padding: 3px;
-        text-align: center;
-        font-size: 0.8rem;
-        background-color: #1d9dd8;
-        border: 1px solid gold;
-    }
+  .selectOption {
+    width: 220px;
+    height: 42px;
+    padding: 0 14px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ffffff;
+
+    background-color: #1d9dd8;
+    border: 1px solid #f5c542;
+    border-radius: 8px;
+
+    cursor: pointer;
+    outline: none;
+
+}
+
+/* Hover */
+.selectOption:hover {
+    background-color: #22df61;
+}
+
+/* Focus */
+.selectOption:focus {
+    border-color: #52e45e;
+    box-shadow: 0 0 0 3px rgba(82, 228, 94, 0.3);
+}
+
+/* Disabled */
+.selectOption:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
     #savebutton{
         width: 10%;
         height: 40px;
@@ -338,7 +363,7 @@ button {
         border: 1px solid gold;
         border-radius: 5px;
     }
-    @media(max-width:500px){
+    @media(max-width:800px){
         .bt1,.bt11{
             font-size:0.5rem;
         }
@@ -363,7 +388,7 @@ button {
             margin-bottom: 5px;
         }
         .selectOption{
-            width: 40%;
+            width: 50%;
             height: 40px;
             margin-bottom: 5px;
         }

@@ -11,6 +11,8 @@ export default function dashboard(db){
     
     router.get("/",async (req,res)=>{
         if(req.isAuthenticated()){
+            
+          const examList  = await db.query(`select * from exam `);
            const psfRecord = await db.query(
                                 `SELECT 
                                     psf.psf_id,
@@ -48,6 +50,7 @@ export default function dashboard(db){
                 userData: req.user,
                 psfData:  req.session.psfRecord,
                 warning:  req.query.warning,
+                examData:examList.rows,
                 date: date
             });
         }else{
