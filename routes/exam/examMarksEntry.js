@@ -79,7 +79,8 @@ export default function examMarksEntry(db) {
                 for (const enrollmentid in marks) {
                           const marksData = marks[enrollmentid];
                           console.log(`Marks ${enrollmentid}: ${marksData}`);
-                          finalmarks.push(`(${enrollmentid},${psfid},'${exam}','${marksData}','${pgdate}','${totalmarks}')`
+                          let enterMarksData = marks[enrollmentid]==='A'? -1 :marks[enrollmentid];
+                          finalmarks.push(`(${enrollmentid},${psfid},'${exam}','${enterMarksData}','${pgdate}','${totalmarks}')`
                   );
                 }
           try {

@@ -35,7 +35,15 @@
 
 				<div class="search">
 					<div class="search1">
-						<form id="updateForm" action="/displayExamMarks/display" method="post">
+						<form 	id="updateForm" 
+								action="
+									<% if (locals.examUpdateFlag) { %>
+										/updateExamMarks/display
+									<% } else{%>
+										/displayExamMarks/display
+									<%}%> 
+								" method="post"
+						>
 							<div class="requiredData">
 								<select class="selectOption" name="exam" id="" placeholder="select exam" required>
 											<option  value="" disable>--Select Exam--</option>

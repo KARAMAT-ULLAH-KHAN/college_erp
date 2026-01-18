@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>Program Record Entry</title>
+	<link rel="stylesheet" href="../styles/currentAttendance.css" />
+	<link rel="stylesheet" href="../styles/header.css" />
+	<link rel="stylesheet" href="../styles/footer.css" />
+	<link rel="stylesheet" href="../styles/tableDesign.css" />
+
+	<script src="../scripts/currentAttendanceUP.js"></script>
+	<script>
+		function enforceCapital(input){
+			input.value = input.value.toUpperCase();
+		}
+	</script>
+</head>
+
+<body>
+	<%- include('../partials/header.ejs')%>
+
+		<div class="entry">
+			<div class="entry1">
+				<!-- code for archive record -->
+
+	<%- include('../partials/archive.ejs')%>
+
+				<!--	code for current date attendance list	-->
+
+				<div class="fbar">
+					<%=classData[0].program_name %> - <%=classData[0].class_name%> - <%= classData[0].section_name%>
+				</div>
+
+				<div class="search">
+					<div class="search1">
+						<form id="updateForm" action="/updateExamMarks/updateMarks" method="post">
+							<div class="requiredData">
+								<%=classData[0].exam_name %>
+								<input type="number" name="totalmarks" value="<%=classData[0].total_marks %>" id="totalMarks" class="numberInput" placeholder="Enter Total Marks" required min="1" >
+								
+								<input type="submit" value="UPDATE" id="savebutton" name="save"><br>
+							</div>
+							
+						<table>
+							
+							<thead><tr>
+								<td>S.No</td>
+								<td>Roll_No</td>
+								<td>Student Name</td>
+								<td>Status</td>
+							</tr></thead>
+							<tbody>
+							
+							<% classData.forEach((row, index)=> { %>
+								<tr>
+									<td>
+										<%=index+1%>
+									</td>
+									<td> 
+										<%=row.inter_bs%> - <%=row.class_no%> - <%=row.year%>
+									</td>
+									<td>
+										<%=row.student_name%>
+									</td>
+									<td>
+										<input 
+											type="text" 
+											class="marksInput" 
+											name="marks[<%= row.enrollment_id %>]"
+											required 
+											value="<%=(row.marks===-1)? 'A' :row.marks  %>"
+											pattern="([1-9][0-9]?|A)" 
+											maxlength="2"
+											onfocus="selectText(this)"
+											oninput="enforceCapital(this)"
+											title="only two digits for marks, and A for absent is allowed"
+										>
+										
+										
+										</td>
+									
+								</tr>
+								<%})%>
+							</tbody></table>
+							<input type="hidden" name="psfid" value="<%=psfid%>">
+							<input type="hidden" name="exam" value="<%=classData[0].exam_id%>">
+							</form>	
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<%- include('../partials/footer.ejs')%>
+			<script src="../scripts/dashboardScript.js">
+			</script>
+			
+
+</body>
+
+</html>

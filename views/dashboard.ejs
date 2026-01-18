@@ -21,9 +21,9 @@
 				warning.style.opacity = "50%"; // fade out
 				setTimeout(() => {
 					warning.style.display = "none"; // remove from layout after fade
-				}, 100); // match fade duration
+				}, 500); // match fade duration
 			}
-		}, 2000);
+		}, 4000);
 	</script>
 </head>
 
@@ -106,7 +106,7 @@
 														</button>
 
 
-														<button name="result_update" class="bt1 gap" type="submit">
+														<button name="result_update" formaction="/updateExamMarks" class="bt1 gap" type="submit">
 															Update
 														</button>
 
@@ -193,7 +193,7 @@
 																</button>
 
 
-																<button name="result_update" class="bt11 gap"
+																<button name="result_update" formaction="/updateExamMarks" class="bt11 gap"
 																	type="submit">
 																	Update
 																</button>

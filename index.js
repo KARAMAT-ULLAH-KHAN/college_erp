@@ -18,7 +18,7 @@ import markPreviousAttendance from "./routes/attendance/markPreviousAttendance.j
 import updateAttendance from "./routes/attendance/updateAttendance.js";
 import examMarksEntry from "./routes/exam/examMarksEntry.js";
 import displayExamMarks from "./routes/exam/displayExamMarks.js";
-
+import updateExamMarks from "./routes/exam/updateExamMarks.js";
 
 const app = express();
 const port = 3000;
@@ -70,6 +70,7 @@ app.use("/updateAttendance",updateAttendance(db));
 //for Exam marking
 app.use("/examMarksEntry",examMarksEntry(db));
 app.use("/displayExamMarks",displayExamMarks(db));
+app.use("/updateExamMarks",updateExamMarks(db));
 
 
 app.use("/logout",logout());

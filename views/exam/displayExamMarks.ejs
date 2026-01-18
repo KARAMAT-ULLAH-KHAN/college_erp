@@ -67,7 +67,7 @@
 										<%=row.student_name%>
 									</td>
 									<td>
-										<%= row.marks %>
+										<%= (row.marks===-1)? 'A' :row.marks%>
 									</td>
 									<td>
 										<%= row.total_marks %>
